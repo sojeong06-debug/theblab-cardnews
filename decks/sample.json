@@ -1,0 +1,9 @@
+{
+  "caption": "시험 전날 밤새면 오히려 손해입니다.",
+  "slides": [
+    { "type": "cover", "bg": "assets/bg/sample-desk.webp", "title": "시험 전날 가장 멍청한 선택", "highlight": "4시간 자기" },
+    { "type": "product", "bg": "assets/bg/sample-desk.webp", "title": "전교 1등이 쓰는\n몰입의 방", "sub": "더비랩 몰입의 방 프로", "product": "assets/product/molip-pro.png", "caption": "==전교 1등의 공부 비법,\n핸드폰 멀리 하고== 일찍 잠드는 것입니다" },
+    { "type": "info", "bg": "assets/bg/sample-desk.webp", "num": "01", "title": "잠은 ==기억 저장== 시간", "body": "자는 동안 뇌는 낮에 공부한 내용을\n장기 기억으로 옮깁니다.\n밤을 새면 이 과정이 통째로 사라져요." },
+    { "type": "cta", "bg": "assets/bg/sample-desk.webp", "title": "오늘 밤은\n==폰 넣고 일찍 자기==", "body": "몰입의 방 프로 · 스마트스토어에서 만나보세요" }
+  ]
+}

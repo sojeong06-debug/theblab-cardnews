@@ -1,0 +1,6 @@
+node_modules/
+.env
+out/**/*.html
+out/sample/
+out/cover-options/
+tmp.json

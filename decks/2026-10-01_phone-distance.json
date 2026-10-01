@@ -1,0 +1,108 @@
+{
+  "topic": "전교 1등은 공부할 때 폰을 어디에 둘까 (고교생 75%는 옆에 둔다)",
+  "caption": "공부할 때 폰, 어디에 두세요? 📱\n\n고등학생 75%는 폰을 손 닿는 곳에 두고 공부한대요.\n근데 폰은 안 봐도, 눈에 보이기만 해도 집중력을 가져갑니다.\n\n고등학생 75%가 매일 하는 최악의 공부 습관, 뭔지 아세요? 👉 넘겨서 확인\n이번 중간고사는 의지 말고 '거리'로 이겨보세요 🔥\n\n📌 저장해두고 시험 전날 다시 보기\n몰입의 방 프로는 프로필 링크 클릭\n\n출처: 아시아경제(2026.3.4) 고교생 3,525명 설문, JAMA(2026.3.9)\n\n#공부자극 #시험기간 #중간고사 #공부습관 #집중력 #전교1등 #고등학생 #수험생 #더비랩 #몰입의방",
+  "slides": [
+    {
+      "type": "cover",
+      "bg": "assets/bg/sample-desk.webp",
+      "bgSize": "auto 170%",
+      "bgPos": "40% 0",
+      "bgPrompt": "photorealistic, night, Korean high school student studying at a wooden desk under a warm desk lamp, a smartphone lying face-up right next to the open textbook glowing, seen from behind over the shoulder, cinematic dim lighting, lower half dark and uncluttered, no text",
+      "title": "고등학생 75%가\n매일 하는",
+      "highlight": "최악의 공부 습관"
+    },
+    {
+      "bg": "assets/bg/sample-desk.webp",
+      "bgSize": "auto 170%",
+      "bgPos": "40% 0",
+      "bgBlur": true,
+      "type": "punch",
+      "title": "바로\n==폰 옆에 두고\n공부하기==",
+      "body": "고등학생 3,525명 중 75%가\n지금도 이렇게 공부합니다.",
+      "src": "아시아경제 2026.3.4 고교생 3,525명 설문"
+    },
+    {
+      "bg": "assets/bg/sample-desk.webp",
+      "bgSize": "auto 170%",
+      "bgPos": "40% 0",
+      "bgBlur": true,
+      "type": "punch",
+      "title": "폰은 ==보이기만 해도==\n집중력을 뺏어가요",
+      "body": "안 보고 엎어둬도, 알림을 꺼도 똑같아요.\n옆에 있는 폰을 참는 데에도\n뇌는 에너지를 씁니다."
+    },
+    {
+      "type": "stat",
+      "bg": "assets/bg/sample-desk.webp",
+      "bgBlur": true,
+      "kicker": "실제로 중고생은",
+      "big": "1/3",
+      "title": "수업 시간의 1/3을\n==폰 보는 데== 씁니다",
+      "src": "JAMA 2026.3.9 (서울신문 보도)",
+      "bgSize": "auto 170%",
+      "bgPos": "40% 0"
+    },
+    {
+      "type": "rank",
+      "bg": "assets/bg/sample-desk.webp",
+      "bgBlur": true,
+      "title": "그럼 폰은 ==어디에?==",
+      "rows": [
+        {
+          "mark": "✕",
+          "label": "책상 위",
+          "tone": "bad"
+        },
+        {
+          "mark": "✕",
+          "label": "책상 위 (엎어두기)",
+          "tone": "bad"
+        },
+        {
+          "mark": "△",
+          "label": "가방 속",
+          "note": "손이 감"
+        },
+        {
+          "mark": "○",
+          "label": "다른 방",
+          "note": "가지러 감"
+        },
+        {
+          "mark": "1",
+          "label": "안 열리는 상자",
+          "note": "더비랩 추천",
+          "tone": "best"
+        }
+      ],
+      "bgSize": "auto 170%",
+      "bgPos": "40% 0"
+    },
+    {
+      "type": "product",
+      "bg": "assets/bg/sample-desk.webp",
+      "bgBlur": true,
+      "title": "전교 1등이 폰을 넣는 곳\n몰입의 방",
+      "sub": "더비랩 몰입의 방 프로",
+      "product": "assets/product/molip-pro.png",
+      "caption": "==정한 시간까지 절대 안 열려요==\n볼까 말까 고민할 필요가 없습니다",
+      "bgSize": "auto 170%",
+      "bgPos": "40% 0",
+      "productCrop": {
+        "src": "assets/ref-product-slide.webp",
+        "x": 210,
+        "y": 450,
+        "w": 690,
+        "h": 640
+      }
+    },
+    {
+      "type": "cta",
+      "bg": "assets/bg/sample-desk.webp",
+      "bgBlur": true,
+      "title": "이번 중간고사는\n==폰부터 넣고 시작==",
+      "body": "📌 저장해두고 시험 전날 다시 보기",
+      "bgSize": "auto 170%",
+      "bgPos": "40% 0"
+    }
+  ]
+}

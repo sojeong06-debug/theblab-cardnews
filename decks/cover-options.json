@@ -1,0 +1,31 @@
+{
+  "slides": [
+    {
+      "type": "cover",
+      "bg": "assets/bg/sample-desk.webp",
+      "bgSize": "auto 170%",
+      "bgPos": "40% 0",
+      "bgPrompt": "photorealistic, night, Korean high school student studying at a wooden desk under a warm desk lamp, a smartphone lying face-up right next to the open textbook glowing, seen from behind over the shoulder, cinematic dim lighting, lower half dark and uncluttered, no text",
+      "title": "고등학생 75%가\n매일 하는",
+      "highlight": "최악의 공부 습관"
+    },
+    {
+      "type": "cover",
+      "bg": "assets/bg/sample-desk.webp",
+      "bgSize": "auto 170%",
+      "bgPos": "40% 0",
+      "bgPrompt": "photorealistic, night, Korean high school student studying at a wooden desk under a warm desk lamp, a smartphone lying face-up right next to the open textbook glowing, seen from behind over the shoulder, cinematic dim lighting, lower half dark and uncluttered, no text",
+      "title": "공부 시간은 늘었는데\n성적은 그대로라면",
+      "highlight": "이것 때문입니다"
+    },
+    {
+      "type": "cover",
+      "bg": "assets/bg/sample-desk.webp",
+      "bgSize": "auto 170%",
+      "bgPos": "40% 0",
+      "bgPrompt": "photorealistic, night, Korean high school student studying at a wooden desk under a warm desk lamp, a smartphone lying face-up right next to the open textbook glowing, seen from behind over the shoulder, cinematic dim lighting, lower half dark and uncluttered, no text",
+      "title": "전교 1등은 안 하고\n고등학생 75%는",
+      "highlight": "매일 하는 것"
+    }
+  ]
+}
