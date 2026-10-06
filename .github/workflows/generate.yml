@@ -2,8 +2,9 @@
 name: 카드뉴스 생성
 
 on:
-  schedule:
-    - cron: '0 6 * * *'   # UTC 06:00 = KST 15:00
+  # 사이트(server.js)로 직접 고르고 올리는 방식으로 바뀌어 자동 실행은 꺼 둠. 다시 켜려면 아래 두 줄 주석 해제
+  # schedule:
+  #   - cron: '0 6 * * *'   # UTC 06:00 = KST 15:00
   workflow_dispatch:
 
 permissions:

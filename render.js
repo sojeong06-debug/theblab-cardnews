@@ -5,8 +5,22 @@ const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer-core');
 
-// 로컬은 Edge, GitHub Actions 는 CHROME_PATH=/usr/bin/google-chrome
-const EDGE = process.env.CHROME_PATH || 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
+// 브라우저 우선순위: CHROME_PATH(Actions) → 프로젝트 안 headless Chrome(.browser) → Edge
+// .browser 설치: npx @puppeteer/browsers install chrome-headless-shell@stable --path ./.browser
+function browserPath() {
+  if (process.env.CHROME_PATH) return process.env.CHROME_PATH;
+  const base = path.join(__dirname, '.browser', 'chrome-headless-shell');
+  if (fs.existsSync(base)) {
+    for (const v of fs.readdirSync(base).sort().reverse()) {
+      const dir = path.join(base, v);
+      const sub = fs.readdirSync(dir).find(d => d.startsWith('chrome-headless-shell'));
+      const exe = sub && path.join(dir, sub, process.platform === 'win32' ? 'chrome-headless-shell.exe' : 'chrome-headless-shell');
+      if (exe && fs.existsSync(exe)) return exe;
+    }
+  }
+  return 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
+}
+const EDGE = browserPath();
 const W = 1080, H = 1350;
 const ROOT = __dirname;
 
@@ -90,8 +104,9 @@ em{font-style:normal;color:#5CF23D}
 .cta .logo{position:absolute;bottom:120px;left:0;right:0;text-align:center;font-size:40px;font-weight:800;letter-spacing:.02em}
 `;
 
-function slideHTML(s) {
-  const bgStyle = s.bg ? `background-image:url('${url(s.bg)}');${s.bgSize ? `background-size:${s.bgSize};` : ''}${s.bgPos ? `background-position:${s.bgPos};` : ''}` : '';
+// toUrl: 이미지 경로 변환 (렌더는 file://, 사이트 미리보기는 /assets/... http 경로)
+function slideHTML(s, toUrl = url) {
+  const bgStyle = s.bg ? `background-image:url('${toUrl(s.bg)}');${s.bgSize ? `background-size:${s.bgSize};` : ''}${s.bgPos ? `background-position:${s.bgPos};` : ''}` : '';
   const bg = s.bg ? `<div class="bg${s.bgBlur ? ' blur' : ''}" style="${bgStyle}"></div>` : '';
   const src = s.src ? `<div class="src">${esc(s.src)}</div>` : '';
   let inner = '';
@@ -110,9 +125,9 @@ function slideHTML(s) {
     // productCrop: 누끼가 없을 때 기존 이미지의 제품 영역을 잘라 카드로 넣는다 {src,x,y,w,h}
     const c = s.productCrop;
     const prod = s.product && fs.existsSync(path.resolve(ROOT, s.product))
-      ? `<img src="${url(s.product)}">`
+      ? `<img src="${toUrl(s.product)}">`
       : c ? `<div style="width:${c.w}px;height:${c.h}px;border-radius:32px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.6);
-          background:url('${url(c.src)}') -${c.x}px -${c.y}px / 1080px 1350px no-repeat"></div>`
+          background:url('${toUrl(c.src)}') -${c.x}px -${c.y}px / 1080px 1350px no-repeat"></div>`
       : `<div class="ph">제품 누끼 PNG 자리</div>`;
     inner = `<div class="top shadow"><div class="t1">${rich(s.title)}</div>${s.sub ? `<div class="sub">${rich(s.sub)}</div>` : ''}</div>
       <div class="prod">${prod}</div><div class="cap shadow">${rich(s.caption)}</div>`;
@@ -151,7 +166,7 @@ async function render(deckPath) {
   return files;
 }
 
-module.exports = { render, slideHTML };
+module.exports = { render, slideHTML, browserPath };
 if (require.main === module) {
   render(process.argv[2] || 'decks/sample.json').then(f => console.log(f.join('\n'))).catch(e => { console.error(e); process.exit(1); });
 }

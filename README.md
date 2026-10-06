@@ -1,24 +1,28 @@
-# 더비랩 카드뉴스 자동화
+# 더비랩 카드뉴스 스튜디오
 
-매일 **15:00 생성 → 18:00 theblab_official 게시** (GitHub Actions)
+버튼 몇 번으로 **트렌드 분석 → 주제 선택 → 기획 컨펌 → 제작·인스타 업로드**.
 
-| 시각 (KST) | 워크플로 | 하는 일 |
-|---|---|---|
-| 15:00 | `generate.yml` | 웹 리서치로 기사 10개 순위 → 1위 주제 7장 카피 → 편집자 검수 → 힉스필드 배경 → 렌더 → **검토 이슈** 생성 |
-| 18:00 | `publish.yml` | 검토 이슈가 열려 있고 `취소` 라벨이 없으면 인스타 캐러셀 게시 → 이슈에 링크 남기고 닫기 |
+## 켜는 법
+`카드뉴스 스튜디오.bat` 더블클릭 → 브라우저에서 http://localhost:4321 이 열립니다.
+(또는 이 폴더에서 `npm start`)
 
-**게시를 막으려면** 18시 전에 그날 이슈를 닫거나 `취소` 라벨을 붙이면 됩니다.
+## 사용 흐름
+1. **트렌드 분석 시작** — 최근 기사·연구·트렌드와 우리 계정 반응을 읽고 주제 10개를 화제성·몰입의 방 연관도로 순위 매김 (2~5분)
+2. **주제 선택** — 하나 골라 "이 주제로 기획하기" → 근거 추가 조사 + 7장 기획 + 편집자 검수 (2~4분)
+3. **기획 확인** — 왼쪽 미리보기를 보며 문구를 바로 고치거나, "이렇게 다시 기획해 줘"로 수정 요청 → **기획 컨펌**
+4. **제작하고 인스타에 올리기** — 힉스필드 배경 생성 → 렌더 → theblab_official 캐러셀 게시 → 게시 링크 표시
 
 ## 최초 설정 (한 번만)
-1. 이 폴더를 GitHub **공개(Public)** 저장소로 올리기 (이미지 주소를 인스타가 가져가야 해서 공개 필요)
-2. 저장소 Settings → Secrets and variables → Actions 에 등록
-   - `ANTHROPIC_API_KEY` — console.anthropic.com
-   - `HF_API_KEY_ID`, `HF_API_KEY_SECRET` — console.higgsfield.ai (크레딧 충전 필요)
-   - `IG_TOKEN` — 수집 서버 `/opt/theblab/.env` 의 `META_TOKEN` 값 (무기한 시스템 사용자 토큰)
-3. Actions 탭 → `카드뉴스 생성` → Run workflow 로 첫 실행 확인
+`.env.example` 을 `.env` 로 복사하고 값 입력 후 스튜디오를 다시 켜기
+- `ANTHROPIC_API_KEY` — console.anthropic.com (트렌드 분석·기획)
+- `HF_API_KEY_ID`, `HF_API_KEY_SECRET` — console.higgsfield.ai (배경 사진, 크레딧 충전 필요. 없으면 기존 사진으로 대체)
+- `IG_TOKEN` — 수집 서버 `/opt/theblab/.env` 의 `META_TOKEN` 값 (업로드)
 
-## 파일
-- `research.js` 리서치·카피·검수 (Claude) / `images.js` 배경 생성 (힉스필드) / `render.js` 렌더 / `publish.js` 인스타 게시
-- `prompts/brand.md` 브랜드 정보, `prompts/copy-rules.md` 카피 규칙 — **카피 품질은 이 두 파일을 고쳐서 조정**
+왼쪽 위 Claude / 힉스필드 / 인스타 표시가 초록색이면 연결된 것입니다.
+
+## 참고
+- 인스타 API는 공개 이미지 주소만 받기 때문에, 업로드 시 이미지를 이 GitHub 공개 저장소에 올린 뒤 그 주소로 게시합니다 (이 PC의 git 로그인 사용)
+- 카피 품질은 `prompts/brand.md`(브랜드 정보)와 `prompts/copy-rules.md`(카피 규칙)를 고쳐서 조정
 - `assets/product/molip-pro.png` 를 넣으면 제품 장에 누끼가 들어감 (없으면 기존 이미지를 잘라 씀)
-- 로컬 렌더 테스트: `node render.js decks/<날짜>.json && node contact.js out/<날짜>`
+- 렌더용 브라우저는 `.browser/` 의 headless Chrome → 없으면 Edge
+- `.github/workflows/` 의 매일 자동 생성·게시는 꺼 둔 상태 (주석 해제하면 15시 생성·18시 게시)

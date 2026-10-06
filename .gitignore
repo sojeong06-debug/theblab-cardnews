@@ -4,3 +4,5 @@ out/**/*.html
 out/sample/
 out/cover-options/
 tmp.json
+data/projects/
+.browser/
