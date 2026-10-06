@@ -56,7 +56,6 @@ app.use(express.static(path.join(ROOT, 'public')));
 app.use('/out', express.static(path.join(ROOT, 'out')));
 app.use('/assets', express.static(path.join(ROOT, 'assets')));
 
-const needClaude = () => { if (!process.env.ANTHROPIC_API_KEY) throw new Error('.env 에 ANTHROPIC_API_KEY 가 없습니다 — Claude 키를 넣고 서버를 다시 켜 주세요'); };
 const wrap = fn => (req, res) => Promise.resolve(fn(req, res)).catch(e => res.status(400).json({ error: e.message }));
 
 app.get('/api/status', (req, res) => res.json({
@@ -71,7 +70,7 @@ app.get('/api/projects', (req, res) => {
   const list = fs.readdirSync(PROJECTS).filter(f => f.endsWith('.json'))
     .map(f => JSON.parse(fs.readFileSync(path.join(PROJECTS, f), 'utf8')))
     .sort((a, b) => b.created.localeCompare(a.created))
-    .map(p => ({ id: p.id, created: p.created, stage: p.stage, topic: p.deck?.topic || p.selected?.topic || null, permalink: p.permalink || null }));
+    .map(p => ({ id: p.id, created: p.created, stage: p.stage, topic: p.deck?.topic || p.selected?.topic || (p.candidates ? `트렌드 주제 ${p.candidates.length}개` : null), permalink: p.permalink || null }));
   res.json(list);
 });
 
@@ -90,7 +89,7 @@ app.get('/api/projects/:id/preview/:n', wrap(async (req, res) => {
 
 // 1. 트렌드 분석 → 주제 후보 10개
 app.post('/api/projects', wrap(async (req, res) => {
-  needClaude();
+  if (!process.env.ANTHROPIC_API_KEY) throw new Error('결제 없이 쓰는 중이라 트렌드 분석은 채팅에서 해요 — Claude 에게 "트렌드 분석해줘" 라고 말해 주세요');
   const id = `${todayKST()}-${crypto.randomBytes(2).toString('hex')}`;
   const p = save({ id, created: new Date().toISOString(), stage: 'researching' });
   const job = startJob(p, 'researching', async log => {
@@ -107,10 +106,11 @@ app.post('/api/projects', wrap(async (req, res) => {
 // 2. 주제 선택 → 7장 기획
 app.post('/api/projects/:id/plan', wrap(async (req, res) => {
   const p = load(req.params.id);
-  needClaude();
   const c = p.candidates?.[req.body.index];
   if (!c) throw new Error('주제를 선택해 주세요');
   p.selected = c;
+  // API 키 없이 쓰는 경우: 선택만 저장하고, 기획은 채팅의 Claude 가 이 파일에 채운다
+  if (!process.env.ANTHROPIC_API_KEY) return res.json({ project: save(Object.assign(p, { request: { type: 'plan', at: new Date().toISOString() } })) });
   const job = startJob(p, 'planning', async log => {
     const r = await planDeck(c, log);
     const cur = load(p.id);
@@ -123,9 +123,9 @@ app.post('/api/projects/:id/plan', wrap(async (req, res) => {
 // 2-1. 피드백으로 다시 기획
 app.post('/api/projects/:id/revise', wrap(async (req, res) => {
   const p = load(req.params.id);
-  needClaude();
   if (!p.deck) throw new Error('기획안이 없습니다');
   if (!req.body.feedback?.trim()) throw new Error('수정 요청을 적어 주세요');
+  if (!process.env.ANTHROPIC_API_KEY) return res.json({ project: save(Object.assign(p, { request: { type: 'revise', feedback: req.body.feedback, at: new Date().toISOString() } })) });
   const job = startJob(p, 'planning', async log => {
     const r = await reviseDeck(p.deck, req.body.feedback, log);
     const cur = load(p.id);

@@ -158,17 +158,33 @@ function steps() {
 function render() {
   const p = state.project;
   if (!p) {
-    $('#main').innerHTML = `<div class="hero">
+    $('#main').innerHTML = state.keys.anthropic ? `<div class="hero">
       <h1>오늘 올릴 카드뉴스, 주제부터 찾아볼까요?</h1>
       <p class="sub">최근 기사와 인스타 반응을 읽고, 잘 터지면서 몰입의 방과 이어지는 주제 10개를 뽑아 드립니다. (2~5분)</p>
-      <button class="primary" onclick="startTrends()">트렌드 분석 시작</button></div>`;
+      <button class="primary" onclick="startTrends()">트렌드 분석 시작</button></div>` : `<div class="hero">
+      <h1>오늘 올릴 카드뉴스, 주제부터 찾아볼까요?</h1>
+      <p class="sub">채팅에서 Claude 에게 <b style="color:var(--accent)">“트렌드 분석해줘”</b> 라고 말하면<br>여기 왼쪽 목록에 주제 10개가 나타납니다.</p></div>`;
     return;
   }
   const view = { researching: progressView, planning: progressView, producing: progressView, topics: topicsView, plan: planView, confirmed: planView, published: publishedView, error: errorView }[p.stage];
-  $('#main').innerHTML = steps() + view(p);
+  const ask = { plan: `“${esc(p.selected?.topic)}” 기획을 요청했습니다`, revise: '수정 요청을 보냈습니다' }[p.request?.type];
+  $('#main').innerHTML = steps() + (ask ? `<div class="card" style="border-color:var(--accent);margin-bottom:16px">
+    <b style="color:var(--accent)">${ask}</b> — 채팅에서 Claude 에게 <b>“기획해줘”</b> 라고 말해 주세요. 완료되면 이 화면이 자동으로 바뀝니다.</div>` : '') + view(p);
+  if (p.request) watchRequest(p.id, p.updated);
   if (['researching', 'planning', 'producing'].includes(p.stage)) poll();
   if (['plan', 'confirmed'].includes(p.stage)) bindPlan();
 }
+
+// 채팅의 Claude 가 기획을 채우면 화면 갱신
+async function watchRequest(id, updated) {
+  clearTimeout(watchRequest.h);
+  watchRequest.h = setTimeout(async () => {
+    if (state.project?.id !== id) return;
+    const p = await api('/api/projects/' + id).catch(() => null);
+    if (p && p.updated !== updated) open(id); else watchRequest(id, updated);
+  }, 4000);
+}
+setInterval(() => refreshList().catch(() => {}), 10000);
 
 // ── 진행 중 ──
 function progressView(p) {
