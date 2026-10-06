@@ -61,7 +61,7 @@ const wrap = fn => (req, res) => Promise.resolve(fn(req, res)).catch(e => res.st
 app.get('/api/status', (req, res) => res.json({
   keys: {
     anthropic: !!process.env.ANTHROPIC_API_KEY,
-    higgsfield: !!(process.env.HF_API_KEY_ID && process.env.HF_API_KEY_SECRET),
+    higgsfield: require('./images').hasKey(),
     instagram: !!process.env.IG_TOKEN,
   },
 }));

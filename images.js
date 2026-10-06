@@ -1,19 +1,26 @@
 // 힉스필드로 장마다 배경 사진 생성 → assets/bg/<덱이름>/NN.jpg
-// 환경변수: HF_API_KEY_ID, HF_API_KEY_SECRET, HF_MODEL(기본 higgsfield-ai/soul/standard)
+// 환경변수: HF_API_KEY(콘솔의 "Copy API key" 값 하나) 또는 HF_API_KEY_ID + HF_API_KEY_SECRET, HF_MODEL(기본 higgsfield-ai/soul/v2/standard)
 const fs = require('fs');
 const path = require('path');
 
 const API = 'https://api.higgsfield.ai';
-const MODEL = process.env.HF_MODEL || 'higgsfield-ai/soul/standard';
+const MODEL = process.env.HF_MODEL || 'higgsfield-ai/soul/v2/standard';
+// 새 콘솔은 키 하나(ID:SECRET 이 합쳐진 값)를 준다. 예전 방식(ID·SECRET 따로)도 지원
+const hfKey = () => {
+  const k = process.env.HF_API_KEY || process.env.HF_API_KEY_ID;
+  return process.env.HF_API_KEY_SECRET ? `${k}:${process.env.HF_API_KEY_SECRET}` : k;
+};
+const hasKey = () => !!(process.env.HF_API_KEY || process.env.HF_API_KEY_ID);
 const headers = () => ({
-  Authorization: `Key ${process.env.HF_API_KEY_ID}:${process.env.HF_API_KEY_SECRET}`,
+  Authorization: `Key ${hfKey()}`,
   'Content-Type': 'application/json',
 });
 
 async function generateOne(prompt, outFile) {
   const r = await fetch(`${API}/${MODEL}`, {
     method: 'POST', headers: headers(),
-    body: JSON.stringify({ prompt, aspect_ratio: '4:5', resolution: '2K', num_images: 1 }),
+    // Soul 2 는 4:5 가 없어 3:4 로 받고 렌더에서 cover 로 잘라 쓴다
+    body: JSON.stringify({ prompt, aspect_ratio: '3:4', resolution: '1080p', batch_size: 1 }),
   });
   const job = await r.json();
   if (!r.ok) throw new Error(`힉스필드 요청 실패 ${r.status}: ${JSON.stringify(job)}`);
@@ -50,4 +57,4 @@ async function generateBackgrounds(deck, name) {
   return failed;
 }
 
-module.exports = { generateBackgrounds };
+module.exports = { generateBackgrounds, hasKey };

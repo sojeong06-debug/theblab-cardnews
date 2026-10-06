@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
-const { generateBackgrounds } = require('./images');
+const { generateBackgrounds, hasKey: hasHiggsfield } = require('./images');
 const { render } = require('./render');
 const { publishDeck } = require('./publish');
 
@@ -51,7 +51,7 @@ function finalizeDeck(deck) {
 async function produce(deck, name, log = () => {}) {
   finalizeDeck(deck);
   let failed = [];
-  if (process.env.HF_API_KEY_ID && process.env.HF_API_KEY_SECRET) {
+  if (hasHiggsfield()) {
     log('힉스필드로 배경 사진 7장 생성 중 (2~5분)');
     failed = await generateBackgrounds(deck, name);
     deck.slides.forEach(s => { if (s.type === 'product') s.bgBlur = true; });
