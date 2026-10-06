@@ -87,11 +87,21 @@ app.get('/api/projects/:id/preview/:n', wrap(async (req, res) => {
   res.type('html').send(slideHTML(s, f => '/' + f.split(path.sep).join('/')));
 }));
 
+// API 키 없이 쓰는 경우: 요청 파일만 남기면, 채팅 창의 Claude 가 data/requests 를 감시하다가
+// 웹 리서치·기획을 해서 프로젝트 파일에 채우고 요청 파일을 지운다 (채팅 창이 켜져 있어야 함)
+const REQUESTS = path.join(ROOT, 'data/requests');
+fs.mkdirSync(REQUESTS, { recursive: true });
+function askClaude(p, request) {
+  p.request = { ...request, at: new Date().toISOString() };
+  fs.writeFileSync(path.join(REQUESTS, `${p.id}.json`), JSON.stringify({ project: p.id, ...p.request }));
+  return save(p);
+}
+
 // 1. 트렌드 분석 → 주제 후보 10개
 app.post('/api/projects', wrap(async (req, res) => {
-  if (!process.env.ANTHROPIC_API_KEY) throw new Error('결제 없이 쓰는 중이라 트렌드 분석은 채팅에서 해요 — Claude 에게 "트렌드 분석해줘" 라고 말해 주세요');
   const id = `${todayKST()}-${crypto.randomBytes(2).toString('hex')}`;
   const p = save({ id, created: new Date().toISOString(), stage: 'researching' });
+  if (!process.env.ANTHROPIC_API_KEY) return res.json({ project: askClaude(p, { type: 'trends' }) });
   const job = startJob(p, 'researching', async log => {
     log('우리 계정 최근 게시물 반응 확인 중');
     const ctx = { today: todayKST(), recentPosts: await recentPosts(), history: readHistory().slice(-30).map(h => `${h.date} ${h.topic}`) };
@@ -109,8 +119,7 @@ app.post('/api/projects/:id/plan', wrap(async (req, res) => {
   const c = p.candidates?.[req.body.index];
   if (!c) throw new Error('주제를 선택해 주세요');
   p.selected = c;
-  // API 키 없이 쓰는 경우: 선택만 저장하고, 기획은 채팅의 Claude 가 이 파일에 채운다
-  if (!process.env.ANTHROPIC_API_KEY) return res.json({ project: save(Object.assign(p, { request: { type: 'plan', at: new Date().toISOString() } })) });
+  if (!process.env.ANTHROPIC_API_KEY) return res.json({ project: askClaude(p, { type: 'plan' }) });
   const job = startJob(p, 'planning', async log => {
     const r = await planDeck(c, log);
     const cur = load(p.id);
@@ -125,7 +134,7 @@ app.post('/api/projects/:id/revise', wrap(async (req, res) => {
   const p = load(req.params.id);
   if (!p.deck) throw new Error('기획안이 없습니다');
   if (!req.body.feedback?.trim()) throw new Error('수정 요청을 적어 주세요');
-  if (!process.env.ANTHROPIC_API_KEY) return res.json({ project: save(Object.assign(p, { request: { type: 'revise', feedback: req.body.feedback, at: new Date().toISOString() } })) });
+  if (!process.env.ANTHROPIC_API_KEY) return res.json({ project: askClaude(p, { type: 'revise', feedback: req.body.feedback }) });
   const job = startJob(p, 'planning', async log => {
     const r = await reviseDeck(p.deck, req.body.feedback, log);
     const cur = load(p.id);

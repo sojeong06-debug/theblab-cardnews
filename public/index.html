@@ -158,19 +158,23 @@ function steps() {
 function render() {
   const p = state.project;
   if (!p) {
-    $('#main').innerHTML = state.keys.anthropic ? `<div class="hero">
+    $('#main').innerHTML = `<div class="hero">
       <h1>오늘 올릴 카드뉴스, 주제부터 찾아볼까요?</h1>
-      <p class="sub">최근 기사와 인스타 반응을 읽고, 잘 터지면서 몰입의 방과 이어지는 주제 10개를 뽑아 드립니다. (2~5분)</p>
-      <button class="primary" onclick="startTrends()">트렌드 분석 시작</button></div>` : `<div class="hero">
-      <h1>오늘 올릴 카드뉴스, 주제부터 찾아볼까요?</h1>
-      <p class="sub">채팅에서 Claude 에게 <b style="color:var(--accent)">“트렌드 분석해줘”</b> 라고 말하면<br>여기 왼쪽 목록에 주제 10개가 나타납니다.</p></div>`;
+      <p class="sub">최근 기사와 인스타 반응을 읽고, 잘 터지면서 몰입의 방과 이어지는 주제 10개를 뽑아 드립니다. (3~6분)</p>
+      <button class="primary" onclick="startTrends()">트렌드 분석 시작</button></div>`;
+    return;
+  }
+  // API 키 없이 쓰는 중: 채팅 창의 Claude 가 요청을 받아 처리하는 동안 대기 화면
+  if (p.request) {
+    const title = { trends: '시장 트렌드를 읽는 중입니다', plan: `“${esc(p.selected?.topic)}” 기획 중입니다`, revise: '수정 요청을 반영하는 중입니다' }[p.request.type];
+    $('#main').innerHTML = steps() + `<div class="card progress"><h1><span class="spinner"></span>${title}</h1>
+      <p class="sub" style="margin:0">Claude 가 웹 검색으로 작업하고 있어요. 3~6분 걸리고, 끝나면 이 화면이 자동으로 바뀝니다.<br>
+      <span style="color:var(--warn)">Claude 채팅 창이 켜져 있어야 진행됩니다.</span></p></div>`;
+    watchRequest(p.id, p.updated);
     return;
   }
   const view = { researching: progressView, planning: progressView, producing: progressView, topics: topicsView, plan: planView, confirmed: planView, published: publishedView, error: errorView }[p.stage];
-  const ask = { plan: `“${esc(p.selected?.topic)}” 기획을 요청했습니다`, revise: '수정 요청을 보냈습니다' }[p.request?.type];
-  $('#main').innerHTML = steps() + (ask ? `<div class="card" style="border-color:var(--accent);margin-bottom:16px">
-    <b style="color:var(--accent)">${ask}</b> — 채팅에서 Claude 에게 <b>“기획해줘”</b> 라고 말해 주세요. 완료되면 이 화면이 자동으로 바뀝니다.</div>` : '') + view(p);
-  if (p.request) watchRequest(p.id, p.updated);
+  $('#main').innerHTML = steps() + view(p);
   if (['researching', 'planning', 'producing'].includes(p.stage)) poll();
   if (['plan', 'confirmed'].includes(p.stage)) bindPlan();
 }
@@ -317,7 +321,7 @@ window.addEventListener("hashchange", () => { const id = location.hash.slice(1);
 (async () => {
   const { keys } = await api('/api/status');
   state.keys = keys;
-  $('#keys').innerHTML = [['anthropic', 'Claude'], ['higgsfield', '힉스필드'], ['instagram', '인스타']]
+  $('#keys').innerHTML = [['higgsfield', '힉스필드'], ['instagram', '인스타']]
     .map(([k, n]) => `<span class="chip ${keys[k] ? 'ok' : 'no'}" title="${keys[k] ? '연결됨' : '.env 에 키 없음'}">${keys[k] ? '●' : '○'} ${n}</span>`).join('');
   await refreshList();
   if (location.hash.length > 1) open(location.hash.slice(1)).catch(() => render()); else render();

@@ -6,3 +6,4 @@ out/cover-options/
 tmp.json
 data/projects/
 .browser/
+data/requests/
