@@ -25,7 +25,8 @@ const Row = z.object({
   tone: z.enum(['bad', 'best', 'normal']),
 });
 const Slide = z.object({
-  type: z.enum(['cover', 'punch', 'stat', 'rank', 'product', 'cta']),
+  type: z.enum(['scover', 'story', 'follow']),
+  showProduct: z.boolean().describe('story 중 제품을 소개하는 한 장만 true'),
   bgPrompt: z.string().describe('배경 사진 생성용 영어 프롬프트. 사실적 사진, 어두운 톤, 글자·로고 없음, 글자 놓일 자리 비우기'),
   title: z.string().describe('제목. 줄바꿈은 \\n, 형광 강조는 ==텍스트=='),
   highlight: z.string().nullable().describe('cover 전용: 초록색 두 번째 줄'),
@@ -60,11 +61,8 @@ const Review = z.object({
   deck: Deck.describe('문제를 고친 최종 덱 (문제가 없으면 그대로)'),
 });
 
-const DECK_RULES = `덱은 정확히 7장, 순서는 고정:
-1 cover (답을 숨긴 후킹, highlight에 초록 줄) → 2 punch (답 공개: "바로 ..." 형식, 출처 src) → 3 punch 또는 stat (왜 문제인지 근거 1)
-→ 4 stat 또는 punch (근거 2, 3장과 다른 근거·다른 단어) → 5 rank (해결책 5줄: bad 2개, normal 2개, 마지막 best 1개 = 몰입의 방에 해당하는 방법, best의 note는 "더비랩 추천")
-→ 6 product (sub는 "더비랩 몰입의 방 프로", 5장의 best에서 자연스럽게 이어지게) → 7 cta (저장 유도).
-cover 제목은 2줄 이내, 한 줄 12자 안팎. stat의 big은 6자 이내. 해당 type이 아닌 필드는 null.`;
+const DECK_RULES = `덱은 7~8장: 1 scover(구체적 숫자가 든 놀라운 사실, 2줄) → story 5~6장(한 장에 한 문장 30~60자, 공감→누가·몇 명·어떻게→결과→반전/결과2→한계→제안+제품 1번) → 마지막 follow.
+제품을 소개하는 story 한 장만 showProduct=true. 장마다 bgPrompt 장면을 다르게. ==강조== 쓰지 않음. 해당 type이 아닌 필드는 null.`;
 
 function textOf(msg) {
   if (msg.stop_reason === 'refusal') throw new Error('모델이 요청을 거절했습니다: ' + JSON.stringify(msg.stop_details));
@@ -98,12 +96,10 @@ async function structured(schema, prompt) {
   return res.parsed_output;
 }
 
-const TYPES = ['cover', 'punch', null, null, 'rank', 'product', 'cta'];
 function validate(deck) {
-  if (deck.slides.length !== 7) throw new Error(`덱이 7장이 아닙니다 (${deck.slides.length})`);
-  deck.slides.forEach((s, i) => {
-    if (TYPES[i] && s.type !== TYPES[i]) throw new Error(`${i + 1}장 type이 ${TYPES[i]}가 아닙니다 (${s.type})`);
-  });
+  const n = deck.slides.length, t = deck.slides.map(s => s.type);
+  if (n < 7 || n > 8) throw new Error(`덱은 7~8장이어야 합니다 (${n})`);
+  if (t[0] !== 'scover' || t[n - 1] !== 'follow' || t.slice(1, -1).some(x => x !== 'story')) throw new Error('장 구성이 scover → story… → follow 가 아닙니다');
 }
 
 // 편집자 검수 — copy-rules.md 자가 점검을 별도 호출로 한 번 더
@@ -111,7 +107,7 @@ async function review(deck) {
   const titles = deck.slides.map((s, i) => `${i + 1}. ${[s.kicker, s.big, s.title, s.highlight].filter(Boolean).join(' ').replace(/==/g, '').replace(/\n/g, ' ')}`).join('\n');
   const r = await structured(Review, `처음 보는 고등학생 입장에서 이 카드뉴스를 검수하세요. 카피 규칙의 금지 항목과 자가 점검을 하나씩 확인하고,
 특히 "제목만 이어 읽기"에서 맥락이 끊기거나 이해가 안 가는 곳, 앞 장에 없던 말을 받아치는 곳, 표지에서 답이 드러나는 곳을 찾으세요.
-문제가 있으면 issues에 적고 고친 덱을 돌려주세요. 구조(7장, type 순서)는 바꾸지 마세요.
+문제가 있으면 issues에 적고 고친 덱을 돌려주세요. 구조(장 수, type 순서)는 바꾸지 마세요.
 
 제목 흐름:
 ${titles}

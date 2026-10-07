@@ -39,10 +39,10 @@ function addHistory(entry) {
 function finalizeDeck(deck) {
   for (const s of deck.slides) for (const k of Object.keys(s)) if (s[k] === null) delete s[k];
   for (const r of deck.slides.find(s => s.type === 'rank')?.rows || []) if (r.tone === 'normal') delete r.tone;
-  const product = deck.slides.find(s => s.type === 'product');
-  if (product) {
-    if (fs.existsSync(path.join(ROOT, 'assets/product/molip-pro.png'))) product.product = 'assets/product/molip-pro.png';
-    else product.productCrop = { src: 'assets/ref-product-slide.webp', x: 210, y: 450, w: 690, h: 640 };
+  // 제품 이미지가 들어가는 장: 옛 product 장 + 스토리형에서 showProduct 인 장
+  for (const s of deck.slides.filter(s => s.type === 'product' || s.showProduct)) {
+    if (fs.existsSync(path.join(ROOT, 'assets/product/molip-pro.png'))) s.product = 'assets/product/molip-pro.png';
+    else s.productCrop = { src: 'assets/ref-product-slide.webp', x: 210, y: 450, w: 690, h: 640 };
   }
   return deck;
 }
@@ -57,7 +57,7 @@ async function produce(deck, name, log = () => {}) {
     deck.slides.forEach(s => { if (s.type === 'product') s.bgBlur = true; });
   } else {
     failed = ['힉스필드 키가 없어 기존 사진으로 대체했습니다'];
-    deck.slides.forEach(s => Object.assign(s, { bg: 'assets/bg/sample-desk.webp', bgSize: 'auto 170%', bgPos: '40% 0', bgBlur: s.type !== 'cover' }));
+    deck.slides.forEach(s => Object.assign(s, { bg: 'assets/bg/sample-desk.webp', bgSize: 'auto 170%', bgPos: '40% 0', bgBlur: !['cover', 'scover', 'story', 'follow'].includes(s.type) }));
   }
   const deckFile = path.join(ROOT, `decks/${name}.json`);
   fs.mkdirSync(path.dirname(deckFile), { recursive: true });

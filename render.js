@@ -96,6 +96,21 @@ em{font-style:normal;color:#5CF23D}
 .rank .row.best .note{opacity:.85}
 .rank .row.bad .lbl{text-decoration:line-through;text-decoration-thickness:5px;opacity:.75}
 
+/* ── 뉴스 스토리형 (좋아요 1만+ 카드뉴스 실측: prompts/benchmark-insights.md) ── */
+.brandtag{position:absolute;top:58px;left:62px;font-size:26px;font-weight:700;letter-spacing:.04em;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.scover .shade{background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.78) 100%)}
+.scover .t{position:absolute;left:62px;right:62px;bottom:200px;font-size:76px;font-weight:700;line-height:1.35}
+.story .shade{background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.8) 100%)}
+.story .t{position:absolute;left:62px;right:62px;bottom:130px;font-size:44px;font-weight:500;line-height:1.6}
+.story .prod{position:absolute;left:50%;top:170px;transform:translateX(-50%);width:640px;height:620px;display:flex;align-items:center;justify-content:center}
+.story .prod img{max-width:100%;max-height:100%;filter:drop-shadow(0 20px 40px rgba(0,0,0,.5))}
+.follow{background:#5CF23D}
+.follow .shade{display:none}
+.follow .wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#0b0b0b}
+.follow .logo{font-size:72px;font-weight:900;letter-spacing:.02em}
+.follow .handle{font-size:34px;font-weight:600;margin-top:14px;opacity:.8}
+.follow .t{font-size:42px;font-weight:600;line-height:1.5;margin-top:60px}
+
 /* 마지막 CTA */
 .cta .shade{background:rgba(0,0,0,.62)}
 .cta .wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 80px}
@@ -110,7 +125,20 @@ function slideHTML(s, toUrl = url) {
   const bg = s.bg ? `<div class="bg${s.bgBlur ? ' blur' : ''}" style="${bgStyle}"></div>` : '';
   const src = s.src ? `<div class="src">${esc(s.src)}</div>` : '';
   let inner = '';
-  if (s.type === 'stat') {
+  const prodBox = () => {
+    const c = s.productCrop;
+    if (s.product && fs.existsSync(path.resolve(ROOT, s.product))) return `<img src="${toUrl(s.product)}">`;
+    if (c) return `<div style="width:${c.w}px;height:${c.h}px;border-radius:32px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.6);
+      background:url('${toUrl(c.src)}') -${c.x}px -${c.y}px / 1080px 1350px no-repeat"></div>`;
+    return '';
+  };
+  if (s.type === 'scover') {
+    inner = `<div class="brandtag">THE BLAB</div><div class="t shadow">${rich(s.title)}</div>`;
+  } else if (s.type === 'story') {
+    inner = `<div class="brandtag">THE BLAB</div>${s.showProduct ? `<div class="prod">${prodBox()}</div>` : ''}<div class="t shadow">${rich(s.title)}</div>`;
+  } else if (s.type === 'follow') {
+    inner = `<div class="wrap"><div class="logo">THE BLAB</div><div class="handle">@theblab_official</div><div class="t">${rich(s.title)}</div></div>`;
+  } else if (s.type === 'stat') {
     inner = `<div class="wrap shadow">${s.kicker ? `<div class="kicker">${rich(s.kicker)}</div>` : ''}
       <div class="big">${esc(s.big)}</div><div class="t1">${rich(s.title)}</div></div>${src}`;
   } else if (s.type === 'punch') {

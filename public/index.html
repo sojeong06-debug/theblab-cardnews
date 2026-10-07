@@ -230,6 +230,9 @@ document.addEventListener('click', e => {
 
 // ── 기획 확인 ──
 const FIELDS = {
+  scover: [['title', '표지 문장 (숫자가 든 놀라운 사실, 2줄)', 2]],
+  story: [['title', '문장 (한 장에 한 문장)', 3]],
+  follow: [['title', '팔로우 문구', 2]],
   cover: [['title', '제목 (답을 숨긴 후킹)', 2], ['highlight', '초록 줄', 1]],
   punch: [['title', '제목', 3], ['body', '본문', 3], ['src', '출처', 1]],
   stat: [['kicker', '숫자 위 문구', 1], ['big', '큰 숫자', 1], ['title', '제목', 2], ['src', '출처', 1]],
@@ -237,7 +240,7 @@ const FIELDS = {
   product: [['title', '제목', 2], ['sub', '제품명', 1], ['caption', '하단 문구', 2]],
   cta: [['title', '제목', 2], ['body', '본문', 2]],
 };
-const NAMES = { cover: '표지', punch: '강조', stat: '숫자', rank: '순위', product: '제품', cta: '마무리' };
+const NAMES = { scover: '표지', story: '본문', follow: '팔로우', cover: '표지', punch: '강조', stat: '숫자', rank: '순위', product: '제품', cta: '마무리' };
 function flow(deck) {
   return deck.slides.map((s, i) => `${i + 1}. ${[s.kicker, s.big, s.title, s.highlight].filter(Boolean).map(hl).join(' ')}`).join('<br>');
 }

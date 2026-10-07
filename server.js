@@ -83,7 +83,7 @@ app.get('/api/projects/:id/preview/:n', wrap(async (req, res) => {
   const deck = finalizeDeck(structuredClone(p.deck));
   const s = deck.slides[Number(req.params.n)];
   if (!s) throw new Error('없는 장입니다');
-  if (!s.bg) Object.assign(s, { bg: 'assets/bg/sample-desk.webp', bgSize: 'auto 170%', bgPos: '40% 0', bgBlur: s.type !== 'cover' });
+  if (!s.bg) Object.assign(s, { bg: 'assets/bg/sample-desk.webp', bgSize: 'auto 170%', bgPos: '40% 0', bgBlur: !['cover', 'scover', 'story', 'follow'].includes(s.type) });
   res.type('html').send(slideHTML(s, f => '/' + f.split(path.sep).join('/')));
 }));
 
