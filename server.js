@@ -179,4 +179,9 @@ app.post('/api/projects/:id/produce', wrap(async (req, res) => {
   res.json({ project: load(p.id), job });
 }));
 
-app.listen(PORT, () => console.log(`카드뉴스 스튜디오: http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`${new Date().toISOString()} 카드뉴스 스튜디오: http://localhost:${PORT}`))
+  .on('error', e => {
+    // 시작 프로그램·바로가기로 두 번 켜져도 이미 켜진 서버를 그대로 쓴다
+    if (e.code === 'EADDRINUSE') { console.log(`${new Date().toISOString()} 이미 실행 중 — 종료`); process.exit(0); }
+    throw e;
+  });

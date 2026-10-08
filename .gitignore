@@ -8,3 +8,6 @@ data/projects/
 .browser/
 data/requests/
 data/benchmark/
+out/_*/
+decks/_*.json
+data/server.log
