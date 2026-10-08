@@ -44,6 +44,7 @@ async function generateBackgrounds(deck, name) {
   fs.mkdirSync(dir, { recursive: true });
   const failed = [];
   await Promise.all(deck.slides.map(async (s, i) => {
+    if (!s.bgPrompt || s.type === 'follow') return; // 팔로우 장은 단색 배경
     const rel = `assets/bg/${name}/${String(i + 1).padStart(2, '0')}.jpg`;
     try {
       await generateOne(s.bgPrompt, path.join(__dirname, rel));
@@ -53,7 +54,7 @@ async function generateBackgrounds(deck, name) {
     }
   }));
   const fallback = deck.slides.find(s => s.bg)?.bg || 'assets/bg/sample-desk.webp';
-  deck.slides.forEach(s => { if (!s.bg) { s.bg = fallback; s.bgBlur = true; } });
+  deck.slides.forEach(s => { if (!s.bg && s.type !== 'follow') { s.bg = fallback; s.bgBlur = true; } });
   return failed;
 }
 

@@ -165,11 +165,20 @@ app.post('/api/projects/:id/produce', wrap(async (req, res) => {
   if (p.stage !== 'confirmed') throw new Error('기획 컨펌 후에 제작할 수 있습니다');
   if (!process.env.IG_TOKEN) throw new Error('.env 에 IG_TOKEN 이 없습니다');
   const job = startJob(p, 'producing', async log => {
-    const deck = structuredClone(p.deck);
-    const r = await produce(deck, p.id, log);
-    let cur = load(p.id);
-    Object.assign(cur, { images: r.images, imageWarnings: r.failed });
-    save(cur);
+    // 기획이 바뀌지 않았고 이미 만든 이미지가 있으면 그대로 올린다 (힉스필드 비용·다른 사진 방지)
+    const strip = d => JSON.stringify(d.slides.map(({ type, title, bgPrompt, showProduct }) => ({ type, title, bgPrompt, showProduct }))) + d.caption;
+    const reuse = p.producedDeck && p.images?.length && strip(p.producedDeck) === strip(p.deck)
+      && fs.existsSync(path.join(ROOT, 'out', p.id, '01.jpg'));
+    let deck = structuredClone(p.deck), cur;
+    if (reuse) {
+      log('이미 만든 이미지를 그대로 사용');
+      deck = structuredClone(p.producedDeck);
+    } else {
+      const r = await produce(deck, p.id, log);
+      cur = load(p.id);
+      Object.assign(cur, { images: r.images, imageWarnings: r.failed, producedDeck: deck });
+      save(cur);
+    }
     const permalink = await upload(deck, p.id, log);
     cur = load(p.id);
     Object.assign(cur, { stage: 'published', permalink, publishedAt: new Date().toISOString() });
