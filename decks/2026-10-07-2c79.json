@@ -5,51 +5,55 @@
   "slides": [
     {
       "type": "scover",
-      "bgPrompt": "photorealistic, natural candid photo, Korean high school students, no text, no logos, teenager lying on a sofa at home happily scrolling a smartphone after school, relaxed, warm late-afternoon window light, lower half darker",
-      "title": "폰 하루 3~4시간 쓴 학생이\n수학 점수 제일 높았다",
+      "bgPrompt": "A Korean high school girl in her school uniform lying on a living-room sofa after school, smiling at her smartphone, school bag dropped on the floor, warm late-afternoon window light, photo taken from slightly above",
+      "title": "폰 하루 ==3~4시간== 쓴 학생이\n수학 점수 ==제일 높았다==",
       "bg": "assets/bg/2026-10-07-2c79/01.jpg"
     },
     {
       "type": "story",
-      "bgPrompt": "photorealistic, natural candid photo, Korean high school students, no text, no logos, mother standing at a half-open bedroom door with arms crossed, teenager on the bed holding a phone, evening home lighting",
-      "title": "\"폰 그만 보고 공부 좀 해!\"\n매일 듣는 그 잔소리, 데이터로 확인해 봤어요.",
+      "bgPrompt": "Evening in a Korean apartment, a mother standing at the half-open bedroom door with arms crossed, her teenage son in school uniform sitting on the bed looking at his phone, warm indoor lighting",
+      "title": "\"폰 그만 보고 공부 좀 해!\"\n매일 듣는 그 잔소리, ==데이터로 확인해 봤어요.==",
       "bg": "assets/bg/2026-10-07-2c79/02.jpg"
     },
     {
       "type": "story",
-      "bgPrompt": "photorealistic, natural candid photo, Korean high school students, no text, no logos, wide shot of a quiet exam hall with many students writing a test at individual desks, soft daylight from tall windows",
-      "title": "OECD가 전 세계 학생들의 시험 점수(PISA)를\n학교 밖에서 폰으로 노는 시간별로 나눠 봤는데요.",
+      "bgPrompt": "A Korean high school classroom during an exam, rows of students in school uniforms writing answers on test papers, quiet, daylight from windows, photo from the back of the room",
+      "title": "OECD가 전 세계 학생들한테\n\"하루에 폰 몇 시간 해?\" 물어보고,\n==수학 점수랑 비교해 봤어요.==",
       "bg": "assets/bg/2026-10-07-2c79/03.jpg"
     },
     {
       "type": "story",
-      "bgPrompt": "photorealistic, natural candid photo, Korean high school students, no text, no logos, two friends laughing together while looking at one phone on a bench outside school after class, golden hour",
-      "title": "학교 밖에서 폰을 전혀 안 쓴 학생은 수학 440점,\n하루 3~4시간 쓴 학생은 499점으로 가장 높았어요.",
+      "bgPrompt": "Two Korean high school girls in school uniforms laughing together while looking at one smartphone, sitting on a bench in front of the school after class, golden hour",
+      "title": "폰을 전혀 안 쓴 학생은 수학 440점,\n하루 3~4시간 쓴 학생은\n==499점으로 가장 높았어요.==",
       "bg": "assets/bg/2026-10-07-2c79/04.jpg"
     },
     {
       "type": "story",
-      "bgPrompt": "photorealistic, natural candid photo, Korean high school students, no text, no logos, late at night, teenager in bed under a blanket with face lit by a phone screen, clock showing past midnight blurred in background, dark",
-      "title": "단, 7시간을 넘기면 470점으로 다시 뚝.\n쉬는 건 괜찮지만, 지나치면 손해라는 거죠.",
+      "bgPrompt": "Late at night, a Korean high school student still in school uniform lying in bed in a dark bedroom, face lit only by the smartphone screen, tired eyes",
+      "title": "단, 7시간을 넘기면 ==470점으로 다시 뚝.==\n쉬는 건 괜찮지만, 지나치면 손해라는 거죠.",
       "bg": "assets/bg/2026-10-07-2c79/05.jpg"
     },
     {
       "type": "story",
-      "bgPrompt": "photorealistic, natural candid photo, Korean high school students, no text, no logos, classroom during lesson, student secretly scrolling a phone under the desk while classmates take notes, teacher blurred at the board",
-      "title": "진짜 차이는 '언제' 쓰느냐였어요.\n학교에서 놀려고 하루 3~5시간 쓴 학생은\n과학 점수가 47점 낮았거든요.",
+      "bgPrompt": "A Korean high school student in school uniform slumped over a desk at night, surrounded by open books, a smartphone glowing face-up beside the notebook, tired",
+      "title": "결국 폰 자체가 문제가 아니라,\n==너무 많이 하는 게== 문제였던 거죠.",
       "bg": "assets/bg/2026-10-07-2c79/06.jpg"
     },
     {
-      "type": "story",
-      "showProduct": true,
-      "bgPrompt": "photorealistic dark cozy study room at night, tidy desk with open books and pencil, warm lamp in the corner, center softly lit and empty, no people, no text",
-      "title": "놀 땐 놀고, 공부할 땐 폰을 잠그기.\n몰입의 방은 정한 시간 동안만 폰을 지켜줘요.",
+      "type": "product",
+      "bgPrompt": "A Korean high school student in school uniform studying at a desk at night under a desk lamp, seen from behind, books and pencil case, dim warm room, no phone in sight",
+      "title": "놀 땐 놀고, 공부할 땐 잠그기\n몰입의 방",
+      "sub": "더비랩 몰입의 방 프로",
+      "caption": "==정한 시간 동안만 폰을 잠가주니까==\n공부할 땐 공부만 할 수 있어요",
       "productCrop": {
-        "src": "assets/ref-product-slide.webp",
-        "x": 210,
-        "y": 450,
-        "w": 690,
-        "h": 640
+        "src": "assets/product/pro-main.png",
+        "sw": 900,
+        "sh": 900,
+        "x": 150,
+        "y": 90,
+        "w": 560,
+        "h": 620,
+        "blend": true
       },
       "bg": "assets/bg/2026-10-07-2c79/07.jpg"
     },
@@ -58,5 +62,6 @@
       "bgPrompt": "",
       "title": "공부가 잘 되는 환경 이야기,\n더비랩 팔로우하기!"
     }
-  ]
+  ],
+  "productName": "pro"
 }

@@ -1,10 +1,18 @@
 // 힉스필드로 장마다 배경 사진 생성 → assets/bg/<덱이름>/NN.jpg
-// 환경변수: HF_API_KEY(콘솔의 "Copy API key" 값 하나) 또는 HF_API_KEY_ID + HF_API_KEY_SECRET, HF_MODEL(기본 higgsfield-ai/soul/v2/standard)
+// 환경변수: HF_API_KEY(콘솔의 "Copy API key" 값 하나) 또는 HF_API_KEY_ID + HF_API_KEY_SECRET, HF_MODEL(기본 xai/grok-imagine-image-2.0)
 const fs = require('fs');
 const path = require('path');
 
 const API = 'https://api.higgsfield.ai';
-const MODEL = process.env.HF_MODEL || 'higgsfield-ai/soul/v2/standard';
+// 2026-10-08 모델 비교(tools/model-test.js): Soul 은 모델 같은 얼굴이라 AI 티가 남 → Grok 이 교실·교복·조명이 가장 자연스러움
+const MODEL = process.env.HF_MODEL || 'xai/grok-imagine-image-2.0';
+const BODY = {
+  'xai/grok-imagine-image-2.0': p => ({ prompt: p, aspect_ratio: '3:4', resolution: '2k', quality: 'medium' }),
+  'higgsfield-ai/soul/v2/standard': p => ({ prompt: p, aspect_ratio: '3:4', resolution: '1080p', batch_size: 1, enhance_prompt: false }),
+};
+// 모든 배경에 붙는 공통 스타일: 폰카 스냅·필름 그레인·평범한 얼굴, 사람은 한국 교복
+const STYLE = ' Candid snapshot taken on a smartphone, natural imperfect lighting, slight film grain, unposed, ordinary everyday faces without makeup. Any students wear Korean school uniforms (navy blazer, white shirt, tie or ribbon, name tag). No text, no watermark, no logos.';
+const withStyle = p => (p.includes('Korean school uniform') ? p : p + STYLE);
 // 새 콘솔은 키 하나(ID:SECRET 이 합쳐진 값)를 준다. 예전 방식(ID·SECRET 따로)도 지원
 const hfKey = () => {
   const k = process.env.HF_API_KEY || process.env.HF_API_KEY_ID;
@@ -19,8 +27,8 @@ const headers = () => ({
 async function generateOne(prompt, outFile) {
   const r = await fetch(`${API}/${MODEL}`, {
     method: 'POST', headers: headers(),
-    // Soul 2 는 4:5 가 없어 3:4 로 받고 렌더에서 cover 로 잘라 쓴다
-    body: JSON.stringify({ prompt, aspect_ratio: '3:4', resolution: '1080p', batch_size: 1 }),
+    // 4:5 가 없어 3:4 로 받고 렌더에서 cover 로 잘라 쓴다
+    body: JSON.stringify((BODY[MODEL] || BODY['xai/grok-imagine-image-2.0'])(withStyle(prompt))),
   });
   const job = await r.json();
   if (!r.ok) throw new Error(`힉스필드 요청 실패 ${r.status}: ${JSON.stringify(job)}`);
@@ -58,4 +66,4 @@ async function generateBackgrounds(deck, name) {
   return failed;
 }
 
-module.exports = { generateBackgrounds, hasKey };
+module.exports = { generateBackgrounds, generateOne, hasKey };

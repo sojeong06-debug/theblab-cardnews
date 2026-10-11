@@ -35,6 +35,11 @@ function addHistory(entry) {
   fs.writeFileSync(path.join(ROOT, 'data/history.json'), JSON.stringify(h, null, 2));
 }
 
+const PRODUCT_SHOTS = {
+  pro: { src: 'assets/product/pro-main.png', sw: 900, sh: 900, x: 150, y: 90, w: 560, h: 620, blend: true }, // y 를 130→90: 제품 윗부분이 잘리지 않게
+  v2: { src: 'assets/product/v2-main.png', sw: 900, sh: 900, x: 150, y: 150, w: 600, h: 620, blend: true },
+};
+
 // 렌더러가 쓰지 않는 null 필드 정리 + 제품 이미지 지정
 function finalizeDeck(deck) {
   for (const s of deck.slides) for (const k of Object.keys(s)) if (s[k] === null) delete s[k];
@@ -42,7 +47,8 @@ function finalizeDeck(deck) {
   // 제품 이미지가 들어가는 장: 옛 product 장 + 스토리형에서 showProduct 인 장
   for (const s of deck.slides.filter(s => s.type === 'product' || s.showProduct)) {
     if (fs.existsSync(path.join(ROOT, 'assets/product/molip-pro.png'))) s.product = 'assets/product/molip-pro.png';
-    else s.productCrop = { src: 'assets/ref-product-slide.webp', x: 210, y: 450, w: 690, h: 640 };
+    // 자사몰 대표 이미지(검은 배경)를 섞어 넣는다. 오른쪽 위 왕관 배지는 잘라냄. deck.productName: pro(기본) | v2
+    else s.productCrop = PRODUCT_SHOTS[deck.productName] || PRODUCT_SHOTS.pro;
   }
   return deck;
 }
@@ -54,7 +60,7 @@ async function produce(deck, name, log = () => {}) {
   if (hasHiggsfield()) {
     log('힉스필드로 배경 사진 7장 생성 중 (2~5분)');
     failed = await generateBackgrounds(deck, name);
-    deck.slides.forEach(s => { if (s.type === 'product') s.bgBlur = true; });
+    // 제품 장은 흐리지 않고 어둡게만 (기존 카드뉴스 260428 방식)
   } else {
     failed = ['힉스필드 키가 없어 기존 사진으로 대체했습니다'];
     deck.slides.forEach(s => Object.assign(s, { bg: 'assets/bg/sample-desk.webp', bgSize: 'auto 170%', bgPos: '40% 0', bgBlur: !['cover', 'scover', 'story', 'follow'].includes(s.type) }));

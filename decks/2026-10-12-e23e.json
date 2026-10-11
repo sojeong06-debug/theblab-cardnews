@@ -1,0 +1,66 @@
+{
+  "topic": "고등학생 절반이 하루 6시간도 못 잔다 — 잠 뺏는 1위는 숙제·인강",
+  "productName": "pro",
+  "caption": "@맨날 새벽에 자는 친구 태그 😴\n\n📊 고딩 잠 뺏는 1위, 폰이 아니라 숙제·인강이었대\n\n\"폰 좀 그만하고 일찍 자!\" 이 잔소리, 진짜 맞는 말일까? 🤔\n고등학생 2,258명한테 \"하루에 몇 시간 자?\" 물어봤더니\n\n✔️ 6시간도 못 자는 학생 46.7%\n✔️ 8시간 이상 자는 학생 5.5%\n✔️ 잠 부족 이유 1위 숙제·인강 25.5% → 학원 19.3% → 야자 13.4%\n\n잠을 늘리려면 숙제를 빨리 끝내는 게 답!\n숙제할 땐 폰 잠그기 🔒\n\n출처: 한국청소년정책연구원 「2024 한국 아동·청소년 인권실태 기초분석보고서」 (농민신문 2026.1.8)\n\n몰입의 방은 프로필 링크에서 🔗\n\n#수면 #공부습관 #시험기간 #중간고사 #고등학생 #수험생 #공부자극 #숙제 #더비랩 #몰입의방",
+  "slides": [
+    {
+      "type": "scover",
+      "bgPrompt": "Late at night, a Korean high school student in school uniform asleep face-down on an open workbook at a desk under a desk lamp, clock showing past 1 AM in the background",
+      "title": "고딩 잠 뺏는 1위,\n폰이 아니라 ==숙제·인강==이었다",
+      "bg": "assets/bg/2026-10-12-e23e/01.jpg"
+    },
+    {
+      "type": "story",
+      "bgPrompt": "Evening in a Korean apartment, a mother standing at the half-open bedroom door saying something, her teenage daughter in school uniform at the desk holding a phone, warm indoor lighting",
+      "title": "\"폰 좀 그만하고 일찍 자!\"\n엄마의 매일 잔소리, 진짜 맞는 말일까요?\n==데이터로 확인해 봤어요.==",
+      "bg": "assets/bg/2026-10-12-e23e/02.jpg"
+    },
+    {
+      "type": "story",
+      "bgPrompt": "A Korean high school classroom in the morning before class, several students in school uniforms yawning and resting their heads on desks, sleepy atmosphere, soft daylight",
+      "title": "한국청소년정책연구원이 고등학생 2,258명한테\n==\"하루에 몇 시간 자?\"== 물어봤더니,",
+      "bg": "assets/bg/2026-10-12-e23e/03.jpg"
+    },
+    {
+      "type": "story",
+      "bgPrompt": "A tired Korean high school girl in school uniform rubbing her eyes on a morning bus, early daylight",
+      "title": "6시간도 못 자는 학생이 ==46.7%==.\n8시간 이상 자는 학생은 ==5.5%==뿐이었어요.",
+      "bg": "assets/bg/2026-10-12-e23e/04.jpg"
+    },
+    {
+      "type": "story",
+      "bgPrompt": "A Korean high school student in school uniform at home late at night watching an online lecture on a laptop with headphones, homework sheets spread on the desk",
+      "title": "잠이 부족한 이유 1위는 폰이 아니라\n==숙제·인강(25.5%)==. 그다음이 학원, 야자였어요.",
+      "bg": "assets/bg/2026-10-12-e23e/05.jpg"
+    },
+    {
+      "type": "story",
+      "bgPrompt": "Late at night, a Korean high school student in school uniform at a desk with an unfinished homework sheet, distracted and looking at a smartphone in hand, wall clock showing late hour",
+      "title": "그럼 잠을 늘리려면 숙제를 빨리 끝내야 하는데,\n숙제하다 폰 한 번 보면\n==끝나는 시간이 자꾸 밀리죠.==",
+      "bg": "assets/bg/2026-10-12-e23e/06.jpg"
+    },
+    {
+      "type": "product",
+      "bgPrompt": "A Korean high school student in school uniform focused on homework at a desk at night under a lamp, seen from behind, no phone in sight",
+      "title": "숙제 빨리 끝내고\n일찍 자는 법, ==몰입의 방==",
+      "sub": "더비랩 몰입의 방 프로",
+      "caption": "==정한 시간 동안 폰을 잠가주니까==\n숙제가 늘어지지 않아요",
+      "productCrop": {
+        "src": "assets/product/pro-main.png",
+        "sw": 900,
+        "sh": 900,
+        "x": 150,
+        "y": 90,
+        "w": 560,
+        "h": 620,
+        "blend": true
+      },
+      "bg": "assets/bg/2026-10-12-e23e/07.jpg"
+    },
+    {
+      "type": "follow",
+      "bgPrompt": "",
+      "title": "공부가 잘 되는 환경 이야기,\n더비랩 팔로우하기!"
+    }
+  ]
+}

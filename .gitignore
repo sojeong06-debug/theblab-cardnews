@@ -11,3 +11,4 @@ data/benchmark/
 out/_*/
 decks/_*.json
 data/server.log
+data/model-test/

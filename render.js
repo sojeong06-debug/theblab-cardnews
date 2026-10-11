@@ -50,7 +50,7 @@ em{font-style:normal;color:#5CF23D}
 /* 제품 */
 .product .shade{background:rgba(0,0,0,.58)}
 .product .top{position:absolute;top:130px;left:60px;right:60px;text-align:center}
-.product .t1{font-size:84px;font-weight:800;line-height:1.22}
+.product .t1{font-size:76px;font-weight:800;line-height:1.22;letter-spacing:-0.03em}
 .product .sub{font-size:44px;font-weight:700;margin-top:14px}
 .product .prod{position:absolute;left:50%;top:470px;transform:translateX(-50%);width:700px;height:620px;
   display:flex;align-items:center;justify-content:center}
@@ -98,10 +98,13 @@ em{font-style:normal;color:#5CF23D}
 
 /* ── 뉴스 스토리형 (좋아요 1만+ 카드뉴스 실측: prompts/benchmark-insights.md) ── */
 .brandtag{position:absolute;top:58px;left:62px;font-size:26px;font-weight:700;letter-spacing:.04em;text-shadow:0 1px 6px rgba(0,0,0,.4)}
-.scover .shade{background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.78) 100%)}
-.scover .t{position:absolute;left:62px;right:62px;bottom:200px;font-size:76px;font-weight:700;line-height:1.35}
+/* 표지: 더비랩 기존 카드뉴스(260428·260429) 그대로 — THE BLAB 작게 + 굵은 흰 제목 + ==초록== 강조, 왼쪽 아래 */
+.scover .shade{background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.72) 100%)}
+.scover .box{position:absolute;left:96px;right:80px;bottom:210px}
+.scover .logo{font-size:34px;font-weight:800;letter-spacing:.01em;margin-bottom:8px}
+.scover .t{font-size:74px;font-weight:800;line-height:1.24;letter-spacing:-0.03em}
 .story .shade{background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.8) 100%)}
-.story .t{position:absolute;left:62px;right:62px;bottom:130px;font-size:44px;font-weight:500;line-height:1.6}
+.story .t{position:absolute;left:80px;right:80px;bottom:140px;font-size:48px;font-weight:700;line-height:1.5;letter-spacing:-0.03em}
 .story .prod{position:absolute;left:50%;top:170px;transform:translateX(-50%);width:640px;height:620px;display:flex;align-items:center;justify-content:center}
 .story .prod img{max-width:100%;max-height:100%;filter:drop-shadow(0 20px 40px rgba(0,0,0,.5))}
 .follow{background:#5CF23D}
@@ -119,23 +122,31 @@ em{font-style:normal;color:#5CF23D}
 .cta .logo{position:absolute;bottom:120px;left:0;right:0;text-align:center;font-size:40px;font-weight:800;letter-spacing:.02em}
 `;
 
+// 제품 사진 잘라 넣기 {src,x,y,w,h, sw,sh(원본 크기, 기본 1080×1350), blend(검은 배경을 화면과 섞기)}
+function cropBox(c, toUrl) {
+  const sw = c.sw || 1080, sh = c.sh || 1350;
+  const look = c.blend ? 'mix-blend-mode:lighten' : 'border-radius:32px;box-shadow:0 24px 60px rgba(0,0,0,.6)';
+  return `<div style="width:${c.w}px;height:${c.h}px;overflow:hidden;${look};background:url('${toUrl(c.src)}') -${c.x}px -${c.y}px / ${sw}px ${sh}px no-repeat"></div>`;
+}
+
 // toUrl: 이미지 경로 변환 (렌더는 file://, 사이트 미리보기는 /assets/... http 경로)
 function slideHTML(s, toUrl = url) {
   const bgStyle = s.bg ? `background-image:url('${toUrl(s.bg)}');${s.bgSize ? `background-size:${s.bgSize};` : ''}${s.bgPos ? `background-position:${s.bgPos};` : ''}` : '';
   const bg = s.bg ? `<div class="bg${s.bgBlur ? ' blur' : ''}" style="${bgStyle}"></div>` : '';
   const src = s.src ? `<div class="src">${esc(s.src)}</div>` : '';
+  // 검은 배경 제품 사진은 .prod 자체에 lighten 을 걸어야 배경 사진과 섞인다 (.prod 의 transform 이 별도 레이어를 만듦)
+  const blendStyle = s.productCrop?.blend ? ' style="mix-blend-mode:lighten"' : '';
   let inner = '';
   const prodBox = () => {
     const c = s.productCrop;
     if (s.product && fs.existsSync(path.resolve(ROOT, s.product))) return `<img src="${toUrl(s.product)}">`;
-    if (c) return `<div style="width:${c.w}px;height:${c.h}px;border-radius:32px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.6);
-      background:url('${toUrl(c.src)}') -${c.x}px -${c.y}px / 1080px 1350px no-repeat"></div>`;
+    if (c) return cropBox(c, toUrl);
     return '';
   };
   if (s.type === 'scover') {
-    inner = `<div class="brandtag">THE BLAB</div><div class="t shadow">${rich(s.title)}</div>`;
+    inner = `<div class="box shadow"><div class="logo">THE BLAB</div><div class="t">${rich(s.title)}</div></div>`;
   } else if (s.type === 'story') {
-    inner = `<div class="brandtag">THE BLAB</div>${s.showProduct ? `<div class="prod">${prodBox()}</div>` : ''}<div class="t shadow">${rich(s.title)}</div>`;
+    inner = `${s.showProduct ? `<div class="prod"${blendStyle}>${prodBox()}</div>` : ''}<div class="t shadow">${rich(s.title)}</div>`;
   } else if (s.type === 'follow') {
     inner = `<div class="wrap"><div class="logo">THE BLAB</div><div class="handle">@theblab_official</div><div class="t">${rich(s.title)}</div></div>`;
   } else if (s.type === 'stat') {
@@ -154,11 +165,10 @@ function slideHTML(s, toUrl = url) {
     const c = s.productCrop;
     const prod = s.product && fs.existsSync(path.resolve(ROOT, s.product))
       ? `<img src="${toUrl(s.product)}">`
-      : c ? `<div style="width:${c.w}px;height:${c.h}px;border-radius:32px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.6);
-          background:url('${toUrl(c.src)}') -${c.x}px -${c.y}px / 1080px 1350px no-repeat"></div>`
+      : c ? cropBox(c, toUrl)
       : `<div class="ph">제품 누끼 PNG 자리</div>`;
     inner = `<div class="top shadow"><div class="t1">${rich(s.title)}</div>${s.sub ? `<div class="sub">${rich(s.sub)}</div>` : ''}</div>
-      <div class="prod">${prod}</div><div class="cap shadow">${rich(s.caption)}</div>`;
+      <div class="prod"${blendStyle}>${prod}</div><div class="cap shadow">${rich(s.caption)}</div>`;
   } else if (s.type === 'info') {
     inner = `<div class="wrap shadow">${s.num ? `<div class="num">${esc(s.num)}</div>` : ''}
       <div class="t1">${rich(s.title)}</div><div class="body">${rich(s.body)}</div></div>`;
