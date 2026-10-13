@@ -14,7 +14,7 @@
 
 ## 최초 설정 (한 번만)
 `.env.example` 을 `.env` 로 복사하고 값 입력 후 스튜디오를 다시 켜기
-- `ANTHROPIC_API_KEY` — console.anthropic.com (트렌드 분석·기획)
+- `ANTHROPIC_API_KEY` — console.anthropic.com (트렌드 분석·기획). **비워 두면** 이 PC의 Claude Code 를 서버가 직접 실행해 같은 일을 합니다(구독으로 동작, 추가 요금 없음). 처음 한 번 터미널에서 `claude` 실행 → `/login` 필요. Claude Code 위치를 못 찾으면 `CLAUDE_BIN` 에 claude.exe 경로를 적기
 - `HF_API_KEY_ID`, `HF_API_KEY_SECRET` — console.higgsfield.ai (배경 사진, 크레딧 충전 필요. 없으면 기존 사진으로 대체)
 - `IG_TOKEN` — 수집 서버 `/opt/theblab/.env` 의 `META_TOKEN` 값 (업로드)
 

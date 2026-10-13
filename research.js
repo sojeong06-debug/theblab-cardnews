@@ -7,6 +7,7 @@ const path = require('path');
 const Anthropic = require('@anthropic-ai/sdk');
 const { z } = require('zod');
 const { betaZodOutputFormat } = require('@anthropic-ai/sdk/helpers/beta/zod');
+const { runClaude } = require('./claude-cli');
 
 const MODEL = 'claude-opus-5';
 // 거절 시 서버가 다른 모델로 자동 재시도
@@ -69,8 +70,12 @@ function textOf(msg) {
   return msg.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
 }
 
+// API 키가 없으면 이 PC의 Claude Code 로 같은 일을 한다 (claude-cli.js)
+const useCLI = () => !process.env.ANTHROPIC_API_KEY;
+
 // 웹 검색 포함 자유 서술 (pause_turn 이어 받기)
-async function searchWrite(prompt) {
+async function searchWrite(prompt, log, signal) {
+  if (useCLI()) return runClaude({ prompt, system: system(), tools: ['WebSearch', 'WebFetch'], log, signal });
   const messages = [{ role: 'user', content: prompt }];
   let msg;
   for (let i = 0; i < 6; i++) {
@@ -86,7 +91,13 @@ async function searchWrite(prompt) {
   return textOf(msg);
 }
 
-async function structured(schema, prompt) {
+async function structured(schema, prompt, signal) {
+  if (useCLI()) {
+    const out = await runClaude({ prompt, system: system(), schema: z.toJSONSchema(schema), signal });
+    const r = schema.safeParse(out);
+    if (!r.success) throw new Error('결과 형식이 맞지 않습니다: ' + r.error.message.slice(0, 300));
+    return r.data;
+  }
   const res = await api().beta.messages.parse({
     model: MODEL, max_tokens: 16000, ...FALLBACK,
     thinking: { type: 'adaptive' }, output_config: { effort: 'high', format: betaZodOutputFormat(schema) },
@@ -103,7 +114,7 @@ function validate(deck) {
 }
 
 // 편집자 검수 — copy-rules.md 자가 점검을 별도 호출로 한 번 더
-async function review(deck) {
+async function review(deck, signal) {
   const titles = deck.slides.map((s, i) => `${i + 1}. ${[s.kicker, s.big, s.title, s.highlight].filter(Boolean).join(' ').replace(/==/g, '').replace(/\n/g, ' ')}`).join('\n');
   const r = await structured(Review, `처음 보는 고등학생 입장에서 이 카드뉴스를 검수하세요. 카피 규칙의 금지 항목과 자가 점검을 하나씩 확인하고,
 특히 "제목만 이어 읽기"에서 맥락이 끊기거나 이해가 안 가는 곳, 앞 장에 없던 말을 받아치는 곳, 표지에서 답이 드러나는 곳을 찾으세요.
@@ -113,12 +124,12 @@ async function review(deck) {
 ${titles}
 
 덱 전체:
-${JSON.stringify(deck, null, 2)}`);
+${JSON.stringify(deck, null, 2)}`, signal);
   validate(r.deck);
   return r;
 }
 
-async function findTopics({ today, recentPosts = '(조회 안 됨)', history = [] }, log = () => {}) {
+async function findTopics({ today, recentPosts = '(조회 안 됨)', history = [] }, log = () => {}, signal) {
   log('웹에서 최근 기사·트렌드를 찾는 중');
   const notes = await searchWrite(`오늘은 ${today} (한국 시간)입니다.
 
@@ -131,33 +142,33 @@ ${recentPosts}
 최근에 이미 다룬 주제 (반복 금지):
 ${history.length ? history.map(h => '- ' + h).join('\n') : '- 없음'}
 
-각 후보마다 주제 한 줄, 표지 후킹 예시, 근거 기사 제목·매체·날짜·URL, 화제성(1~5), 연관도(1~5), 이유를 적으세요.`);
+각 후보마다 주제 한 줄, 표지 후킹 예시, 근거 기사 제목·매체·날짜·URL, 화제성(1~5), 연관도(1~5), 이유를 적으세요.`, log, signal);
   log('주제 후보 10개 정리 중');
-  const { candidates } = await structured(Topics, `아래 리서치 메모의 후보를 순위대로 정리하세요. 정확히 10개, 1위가 맨 앞.\n\n${notes}`);
+  const { candidates } = await structured(Topics, `아래 리서치 메모의 후보를 순위대로 정리하세요. 정확히 10개, 1위가 맨 앞.\n\n${notes}`, signal);
   return { notes, candidates };
 }
 
-async function planDeck(candidate, log = () => {}) {
+async function planDeck(candidate, log = () => {}, signal) {
   log('고른 주제의 근거 자료를 추가로 조사하는 중');
   const notes = await searchWrite(`카드뉴스 주제: ${candidate.topic}
 근거 기사: ${candidate.headline} (${candidate.source} ${candidate.date}) ${candidate.url}
 
 이 주제로 7장 카드뉴스를 만들기 위해, 근거가 되는 수치·연구·기사를 웹 검색으로 2~4개 더 확인하세요.
-각 근거마다 정확한 수치, 매체, 날짜를 적고, 출처가 불확실한 수치는 쓰지 마세요.`);
+각 근거마다 정확한 수치, 매체, 날짜를 적고, 출처가 불확실한 수치는 쓰지 마세요.`, log, signal);
   log('7장 기획 작성 중');
-  const draft = await structured(Deck, `아래 조사 메모로 "${candidate.topic}" 카드뉴스 덱을 만드세요.\n\n${DECK_RULES}\n\n조사 메모:\n${notes}`);
+  const draft = await structured(Deck, `아래 조사 메모로 "${candidate.topic}" 카드뉴스 덱을 만드세요.\n\n${DECK_RULES}\n\n조사 메모:\n${notes}`, signal);
   validate(draft);
   log('편집자 검수 중');
-  const r = await review(draft);
+  const r = await review(draft, signal);
   return { notes, draft, deck: r.deck, review: { pass: r.pass, issues: r.issues } };
 }
 
-async function reviseDeck(deck, feedback, log = () => {}) {
+async function reviseDeck(deck, feedback, log = () => {}, signal) {
   log('피드백 반영 중');
-  const revised = await structured(Deck, `아래 카드뉴스 덱을 사용자 피드백대로 고치세요. 피드백이 언급하지 않은 장은 그대로 두세요.\n\n${DECK_RULES}\n\n피드백:\n${feedback}\n\n현재 덱:\n${JSON.stringify(deck, null, 2)}`);
+  const revised = await structured(Deck, `아래 카드뉴스 덱을 사용자 피드백대로 고치세요. 피드백이 언급하지 않은 장은 그대로 두세요.\n\n${DECK_RULES}\n\n피드백:\n${feedback}\n\n현재 덱:\n${JSON.stringify(deck, null, 2)}`, signal);
   validate(revised);
   log('편집자 검수 중');
-  const r = await review(revised);
+  const r = await review(revised, signal);
   return { deck: r.deck, review: { pass: r.pass, issues: r.issues } };
 }
 
