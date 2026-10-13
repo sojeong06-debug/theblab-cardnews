@@ -43,7 +43,8 @@ function runClaude({ prompt, system, tools = [], schema, log = () => {}, signal 
     '--tools', tools.length ? tools.join(',') : ''];
   if (tools.length) args.push('--allowedTools', tools.join(','));
   if (system) args.push('--system-prompt', system);
-  if (schema) args.push('--json-schema', JSON.stringify(schema));
+  // zod 가 붙이는 "$schema"(draft 2020-12) 줄은 Claude Code 가 거부하므로 빼고 넘긴다
+  if (schema) { const { $schema, ...rest } = schema; args.push('--json-schema', JSON.stringify(rest)); }
 
   return new Promise((resolve, reject) => {
     const child = spawn(exe, args, { cwd: WORKDIR, stdio: ['pipe', 'pipe', 'pipe'], windowsHide: true });
