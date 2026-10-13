@@ -1,0 +1,85 @@
+{
+  "topic": "딱 19분 더 잔 대학생, 학점이 더 높았다 (미국 대학생 1,149명 무작위 실험 + 누운 뒤 화면과 수면 시간)",
+  "caption": "😴 딱 19분 더 잤을 뿐인데, 성적이 올랐다\n\n미국 연구진이 대학생 1,149명 중 무작위로 뽑은 일부에게만 평일 7시간 이상 자면 하루 4.75달러를 주는 실험을 했어요.\n돈을 받은 학생들은 4주 동안 평일 수면이 약 19분 늘었고, 7시간 이상 잔 밤도 26% 많아졌습니다.\n그 학기 학점은 안 받은 학생들보다 0.075~0.089점 높았는데, 총 공부 시간은 그대로였다고 해요.\n다만 효과는 작은 편이고 주로 1학년에게서 나타났으며, 보상이 끝나자 늘어난 잠도 8분으로 줄어 반복 검증이 더 필요하다고 합니다.\n한편 노르웨이 대학생 45,202명 조사에서는 누운 뒤 화면을 1시간 더 볼수록 잠이 24분 짧았다고 해요(상관관계 연구).\n\n📌 출처\n- Newswise(피츠버그대 보도자료) 2026.08.04 / Journal of Political Economy\n- NBER 연구 보고서 w32550 (2026.04 수정본)\n- ScienceAlert 2026.08.09\n- Frontiers in Psychiatry 보도자료 2025.03.31 (노르웨이 대학생 45,202명, 상관관계 연구)\n\n시험기간마다 잠 줄이는 친구에게 공유해보세요 🙌\n\n몰입의 방은 프로필 링크에서\n\n#수면 #공부습관 #시험기간 #수험생 #고3 #공부자극 #공부환경 #스마트폰중독 #몰입의방 #더비랩",
+  "slides": [
+    {
+      "type": "scover",
+      "showProduct": false,
+      "bgPrompt": "Realistic photo, dark moody tone, a college student sleeping peacefully in a dim dorm room bed, soft blue moonlight from the window, alarm clock blurred on nightstand, large empty dark area in the lower half for text, no text, no logos",
+      "title": "딱 19분 더 잤을 뿐인데\n성적이 올랐다",
+      "src": "Newswise 2026.08.04 / Journal of Political Economy",
+      "bg": "assets/bg/2026-10-13-sl19/01.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Realistic photo, dark tone, a tired Korean high school student at a desk late at night under a single desk lamp, piles of workbooks, rubbing eyes, empty dark space at bottom for text, no text, no logos",
+      "title": "\"잠은 나중에 자고 공부부터 해!\"\n시험기간마다 듣는 그 말,\n데이터로 확인해 봤어요.",
+      "bg": "assets/bg/2026-10-13-sl19/02.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Realistic photo, dark tone, close-up of a wrist wearing a black fitness tracker band resting on a bed sheet at night, faint screen glow, shallow depth of field, empty dark lower area for text, no readable text, no logos",
+      "title": "미국 연구진이 대학생 1,149명 중 무작위로\n고른 일부에게만 평일 7시간 이상 자면\n돈을 주는 실험을 했는데요.",
+      "src": "Newswise 2026.08.04, ScienceAlert 2026.08.09",
+      "bg": "assets/bg/2026-10-13-sl19/03.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Realistic photo, dark calm tone, early morning dorm room with curtains slightly open and pale dawn light, a neatly made bed and student waking up rested, empty dark space at bottom for text, no text, no logos",
+      "title": "돈을 받은 학생들은 4주 동안\n평일 잠이 약 19분 늘었고,\n7시간 이상 잔 밤도 26% 많아졌습니다.",
+      "src": "NBER w32550 (2026.04 수정본), Newswise 2026.08.04",
+      "bg": "assets/bg/2026-10-13-sl19/01.jpg",
+      "bgBlur": true
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Realistic photo, dark tone, a university student studying at a library table in the morning with coffee and open notebook, soft window light, calm focused mood, empty dark lower area for text, no readable text, no logos",
+      "title": "그 학기 학점도 돈을 안 받은 학생들보다\n0.075~0.089점 높았는데요, 차이는 작지만\n공부 시간은 그대로였다고 해요.",
+      "src": "Newswise 2026.08.04 / Journal of Political Economy",
+      "bg": "assets/bg/2026-10-13-sl19/05.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Realistic photo, very dark bedroom at night, a smartphone lying face-up on a pillow next to a sleeping area, screen faintly glowing, blurred digital clock past midnight on nightstand, empty dark space at bottom for text, no readable text, no logos",
+      "title": "문제는 잠을 19분 늘리는 게\n생각보다 어렵다는 거예요.",
+      "bg": "assets/bg/2026-10-13-sl19/01.jpg",
+      "bgBlur": true
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Realistic photo, very dark bedroom at night, a young student lying in bed under a blanket, face lit only by the cold blue glow of a smartphone held above, digital clock blurred showing late hour, empty dark space at bottom for text, no readable text, no logos",
+      "title": "누워서 릴스 딱 하나만 보려다가\n잠이 24분 줄었다는 조사가 있거든요.\n(노르웨이 대학생 45,202명 조사)",
+      "src": "Frontiers in Psychiatry 보도자료 2025.03.31 (상관관계 연구)",
+      "bg": "assets/bg/2026-10-13-sl19/07.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": true,
+      "bgPrompt": "Realistic photo, dark night tone, close-up of a hand placing a smartphone into an open timer lock box on a desk across the room from a bed, warm dim lamp, bed with turned-down blanket in soft focus behind, empty dark lower area for text, no text, no logos",
+      "title": "그러니 릴스를 아예 못 보도록\n자기 전엔 폰을 몰입의 방에 가둬두세요.\n이 습관으로 다음 시험 점수가\n달라질지도 몰라요.",
+      "productCrop": {
+        "src": "assets/product/pro-main.png",
+        "sw": 900,
+        "sh": 900,
+        "x": 150,
+        "y": 90,
+        "w": 560,
+        "h": 620,
+        "blend": true
+      },
+      "bg": "assets/bg/2026-10-13-sl19/08.jpg"
+    },
+    {
+      "type": "follow",
+      "showProduct": false,
+      "bgPrompt": "Realistic photo, dark cozy tone, a tidy study desk at night with a closed notebook, pencil and a small lamp turned low, peaceful atmosphere, empty dark space at bottom for text, no text, no logos",
+      "title": "공부가 잘 되는 환경 이야기,\n더비랩 팔로우하기!"
+    }
+  ]
+}
