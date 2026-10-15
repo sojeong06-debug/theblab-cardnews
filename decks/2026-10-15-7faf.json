@@ -1,0 +1,95 @@
+{
+  "topic": "폰을 꺼도, 뒤집어도 — 책상 위에 있으면 점수가 낮았다 (Ward 외 2017)",
+  "caption": "📵 소리 끄고 뒤집어 놔도… 책상 위에 폰이 있던 그룹 점수가 더 낮았어요\n\n고교생 43.4%는 공부할 때 폰을 '무음으로 해서 근처에' 둔다고 해요(진학사).\n미국 텍사스대 연구진이 520명을 세 그룹으로 나눠 폰을 책상 위·가방 속·아예 다른 방에 두고(소리 끄고 화면은 뒤집어서) 똑같은 집중력(작업기억) 테스트를 풀게 했더니, 75점 만점에 책상 위 그룹은 약 30.6점, 다른 방 그룹은 약 33.9점이었어요(논문 그래프 기준). 이어진 275명 실험에서도 같은 방향의 결과가 나왔습니다.\n다만 7,093명을 모아 다시 분석한 연구에선 효과가 처음 연구보다 작았어요. 폰이 옆에 있다고 성적이 떨어진다는 뜻은 아니에요.\n\n출처: UT Austin News 2017-06-26 (Ward 외, Journal of the Association for Consumer Research) / Parry, Media Psychology 2024 / 한국교육신문 2026-03-04 (진학사 설문)\n\n공감되면 저장 📌\n몰입의 방은 프로필 링크에서\n\n#수능 #고3 #수험생 #시험기간 #공부팁 #집중력 #스마트폰 #브레인드레인 #공부자극 #더비랩",
+  "comment": "무음으로 해 두면 괜찮다고 믿었던 사람 🙋",
+  "slides": [
+    {
+      "type": "scover",
+      "showProduct": false,
+      "bgPrompt": "Candid phone snapshot of a Korean high school boy in school uniform taking a test in a classroom, a switched-off smartphone lying face down at the corner of his desk, he glances at it with a frustrated, stuck expression, pencil stopped, natural classroom daylight, slight grain, bottom third dark and simple for text, no text, no writing on paper, no logos",
+      "title": "무음으로 해 둔 폰도\n==책상 위에 있으면 점수 낮아진다==",
+      "src": "UT Austin News 2017-06-26",
+      "bg": "assets/bg/2026-10-15-7faf/01.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Close-up candid snapshot of a pretty Korean high school girl in uniform at her desk at home, switching her smartphone to silent and setting it right beside her notebook with a confident relaxed smile, as if saying it's fine, natural window light, slight grain, bottom third dark and simple for text, no text, no writing",
+      "title": "고교생 43.4%는 폰을 무음으로 해서\n근처에 둔다는데요, 정말 괜찮은지\n==미국 텍사스대에서 실험을 해 봤어요==",
+      "src": "한국교육신문 2026-03-04 (진학사 설문)",
+      "bg": "assets/bg/2026-10-15-7faf/02.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Candid phone snapshot of a psychology experiment room in Korea: in the foreground a pretty Korean high school girl in school uniform taking a test with a curious, slightly nervous expression, glancing at a smartphone lying face down on her desk; behind her a boy has his phone zipped inside a backpack on his chair; through an open doorway another room is visible with phones placed on a table; a young researcher with a clipboard watches from the back, natural daylight, slight grain, faces clearly visible, bottom third dark and simple for text, no name tags, no text, no writing on paper, no logos",
+      "title": "참가자 520명을 세 그룹으로 나눠\n폰을 책상 위, 가방 속, 아예 다른 방에 두게 하고\n==똑같은 집중력 테스트==를 풀게 했어요",
+      "src": "UT Austin News 2017-06-26",
+      "bg": "assets/bg/2026-10-15-7faf/03-mv8xwme5.jpg",
+      "bgBlur": false
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Candid snapshot of a Korean high school boy in school uniform at a desk solving problems with a bright, pleased expression, pencil moving fast, through an open door behind him a smartphone lies on a shelf in another room, soft daylight, slight grain, bottom third dark and simple for text, no text, no writing visible on paper",
+      "title": "그 결과, 책상 위에 둔 그룹은\n아예 다른 방에 둔 그룹보다\n==집중력 점수가 약 10% 낮았어요==",
+      "src": "UT Austin News 2017-06-26",
+      "bg": "assets/bg/2026-10-15-7faf/04.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Realistic photo, a pretty Korean high school girl in a Korean school uniform studying alone at a clean desk in a bright quiet study room, deeply focused with a calm confident expression, writing in a workbook, no phone anywhere on the desk or in view, soft natural window light, darker lower third for text, no writing or letters visible anywhere",
+      "title": "결국 소리를 끄는 것보다\n==폰을 눈앞에서 치우는 게==\n더 중요했던 거죠",
+      "bg": "assets/bg/2026-10-15-7faf/05-close-mv91vtvp.jpg",
+      "bgBlur": false
+    },
+    {
+      "type": "product",
+      "showProduct": false,
+      "bgPrompt": "Dark simple study desk at night with a small warm desk lamp, closed workbooks stacked to one side, empty clean surface in the middle, no people, no hands, no phone, quiet moody realistic photo, slight grain, bottom third dark and simple for text, no text, no writing, no logos",
+      "title": "폰을 안 보이는 곳에 두는\n가장 확실한 방법, ==몰입의 방==",
+      "sub": "더비랩 몰입의 방 프로",
+      "caption": "==보이지도, 꺼낼 수도 없게==\n공부하는 동안만큼은 폰을 가둬 두세요",
+      "productCrop": {
+        "src": "assets/product/pro-main.png",
+        "sw": 900,
+        "sh": 900,
+        "x": 150,
+        "y": 90,
+        "w": 560,
+        "h": 620,
+        "blend": true
+      },
+      "bg": "assets/bg/2026-10-15-7faf/07.jpg"
+    },
+    {
+      "type": "follow",
+      "showProduct": false,
+      "bgPrompt": "Candid snapshot of a Korean high school boy in uniform stretching with a relieved smile after studying, closed workbook on the desk, evening window light, slight grain, bottom third dark and simple for text, no text, no writing",
+      "title": "공부가 잘 되는 환경 이야기,\n더비랩 팔로우하기!"
+    }
+  ],
+  "scores": {
+    "0": {
+      "score": 4,
+      "problem": "시험 보는 교실, 엎어둔 폰, 답답한 표정이 문장과 잘 맞습니다. 다만 시선이 폰을 정확히 향하는지는 약간 애매합니다"
+    },
+    "1": {
+      "score": 4,
+      "problem": "폰을 노트 옆에 두고 '괜찮아' 하는 듯한 여유 있는 미소가 잘 드러납니다. 무음으로 바꾸는 동작은 사진만으로는 알기 어렵습니다"
+    },
+    "2": {
+      "score": 3,
+      "problem": "실험 상황(책상 위 폰, 가방, 다른 방 문, 연구자)은 잘 보이지만 인물이 모두 무표정하게 고개를 숙이고 있어 감정이 없고, 이름표에 가짜 글씨가 생겼습니다"
+    },
+    "3": {
+      "score": 5,
+      "problem": ""
+    },
+    "5": {
+      "score": 4,
+      "problem": "사람·손·폰 없이 단순한 밤 책상이라 제품 장 규칙에 맞고, 가운데가 비어 있어 제품 사진을 얹기 좋습니다"
+    }
+  }
+}
