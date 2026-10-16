@@ -1,0 +1,112 @@
+{
+  "topic": "메타, 미국 18세 미만 인스타·페이스북 하루 2시간 제한·자정~6시 접속 차단 합의 / 국감에서 '한국도 입법되면 따르겠다'",
+  "caption": "⏰ 미국 10대, 인스타 하루 2시간 넘으면 차단된대요\n\n인스타를 운영하는 메타가 SNS 중독 소송을 낸 미국 주 정부들과 합의했어요.\n18세 미만은 페이스북·인스타를 합쳐 하루 2시간까지만 쓸 수 있고, 자정~오전 6시엔 접속이 막혀요.\n10월 6일 국정감사에서 메타코리아 부사장은 \"우리나라에서 입법으로 정해지면 충분히 따를 의향이 있다\"고 답했어요.\n다만 미국 합의는 아직 법원 승인 전이고, 한국은 정해진 게 없어요.\n\n출처: SBS Biz(2026.08.27), 디지털데일리(2026.10.06)\n\n생각나는 친구에게 공유해보세요 📲\n몰입의 방은 프로필 링크에서\n\n#몰입의방 #더비랩 #수험생 #고등학생 #중학생 #인스타그램 #메타 #스마트폰중독 #공부자극 #시험기간",
+  "comment": "한국에도 생기면, 찬성이에요 반대예요? 👀",
+  "slides": [
+    {
+      "type": "scover",
+      "showProduct": false,
+      "bgPrompt": "Candid phone snapshot of a shocked Korean high school girl (17, pretty, school uniform) in a bright school hallway at break time, mouth open, staring at her smartphone as if her app just got blocked, classmates blurred behind, natural daylight, natural grain, bottom third dark and plain for text, no writing, no letters on screen, no logos",
+      "title": "만 18세 미만이면 \n==인스타 하루 2시간으로 제한된다==",
+      "src": "SBS Biz 2026.08.27",
+      "bg": "assets/bg/2026-10-16-2d59/01.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Candid phone snapshot of a surprised Korean teenage boy (17, casual hoodie) sitting on a living room sofa in the evening, eyebrows raised and mouth slightly open, holding his smartphone while looking up at a TV news broadcast showing a blurred American courthouse with reporters and camera flashes on the steps, warm lamp light mixed with TV glow, natural grain, bottom third dark sofa and floor plain for text, no writing, no readable text on TV or phone screen, no logos",
+      "title": "인스타를 운영하는 메타가\n==SNS 중독 소송을 낸 미국 주 정부들과==\n합의했는데요.",
+      "src": "SBS Biz 2026.08.27",
+      "bg": "assets/bg/2026-10-16-2d59/02-mvanew5p.jpg",
+      "bgBlur": false
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Candid snapshot of a frustrated Korean teenage boy (16, school uniform) on a school bus seat, scrolling his phone with an annoyed face as if time ran out, afternoon window light, natural grain, bottom third dark bus floor for text, no writing, no letters on screen, no logos",
+      "title": "미국 18세 미만은 페이스북·인스타를 합쳐\n==하루 2시간==까지만 쓸 수 있다고 해요.",
+      "src": "SBS Biz 2026.08.27",
+      "bg": "assets/bg/2026-10-16-2d59/03.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Dark bedroom at midnight, a pretty Korean teenage girl (17) in pajamas sitting up in bed looking shocked at a phone whose screen has gone dark, digital clock on nightstand glowing as blurred red light, phone-camera night grain, bottom third very dark for text, no writing, no readable numbers or letters, no logos",
+      "title": "==자정부터 오전 6시까지는 접속이 막히고==\n부모가 승인해야 풀 수 있습니다.",
+      "src": "SBS Biz 2026.08.27",
+      "bg": "assets/bg/2026-10-16-2d59/04.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Candid photo of a Korean parliamentary audit hearing room, a generic middle-aged Korean businessman in a dark suit answering seriously at a microphone, lawmakers' desks blurred in foreground, fluorescent lighting, slight grain, bottom third dark desk surface for text, no writing, no name plates with letters, no logos",
+      "title": "한국에선 10월 6일 국정감사에서\n==\"법으로 정해지면 충분히 따를 의향이 있다==\"고 답했어요.",
+      "src": "디지털데일리 2026.10.06",
+      "bg": "assets/bg/2026-10-16-2d59/05.jpg"
+    },
+    {
+      "type": "story",
+      "showProduct": false,
+      "bgPrompt": "Candid snapshot of two Korean high school students, a boy and a pretty girl in school uniforms, in a classroom at break time looking puzzled and talking while holding phones, natural window light, slight grain, bottom third dark desks for text, no writing, no blackboard text, no logos",
+      "title": "다만 미국 합의는 ==아직 법원 승인 전==이고,\n한국은 정해진 게 없습니다.",
+      "src": "SBS Biz 2026.08.27 / 디지털데일리 2026.10.06",
+      "bg": "assets/bg/2026-10-16-2d59/06.jpg"
+    },
+    {
+      "type": "product",
+      "showProduct": false,
+      "bgPrompt": "Simple dark bedroom nightstand at night with a small warm lamp and a glass of water, empty bed with neat blanket softly blurred behind, no people, no hands, no phone, calm moody light, bottom third dark plain wood for text, no writing, no logos",
+      "title": "전교 1등이 사용하는 ==몰입의 방==",
+      "sub": "더비랩 몰입의 방 프로",
+      "caption": "==자정 전에 폰을 가둬두면==\n내일 아침이 조금 달라질지도 몰라요",
+      "video": true,
+      "productCrop": {
+        "src": "assets/product/pro-main.png",
+        "sw": 900,
+        "sh": 900,
+        "x": 150,
+        "y": 90,
+        "w": 560,
+        "h": 620,
+        "blend": true
+      },
+      "bg": "assets/bg/2026-10-16-2d59/07.jpg"
+    },
+    {
+      "type": "follow",
+      "showProduct": false,
+      "bgPrompt": "Candid snapshot of a focused Korean high school girl (17, pretty, school uniform) studying at a tidy desk under a warm lamp, no phone in sight, calm smile, natural grain, bottom third dark desk for text, no writing on papers, no letters, no logos",
+      "title": "공부가 잘 되는 환경 이야기,\n더비랩 팔로우하기!"
+    }
+  ],
+  "scores": {
+    "0": {
+      "score": 5,
+      "problem": ""
+    },
+    "1": {
+      "score": 3,
+      "problem": "뒷모습 정장 3명과 법원 건물뿐이라 얼굴·감정이 없고, 10대가 멈출 장면이 아닌 분위기 사진입니다"
+    },
+    "2": {
+      "score": 4,
+      "problem": "짜증 표정은 보이지만 '시간 다 됨' 상황이 화면에서 바로 드러나지는 않습니다"
+    },
+    "3": {
+      "score": 4,
+      "problem": "협탁 빨간 시계에 깨진 가짜 숫자가 보입니다(작고 흐려서 큰 문제는 아님)"
+    },
+    "4": {
+      "score": 4,
+      "problem": "상황은 맞지만 학생이 없고 표정이 담담해서 멈추게 하는 힘은 약합니다. 가슴 명찰에 알아볼 수 없는 기호가 있습니다"
+    },
+    "5": {
+      "score": 4,
+      "problem": "어리둥절한 표정·교복은 좋은데, '아직 정해진 게 없다'는 내용과의 연결은 약한 편입니다"
+    },
+    "6": {
+      "score": 5,
+      "problem": ""
+    }
+  }
+}
